@@ -3,7 +3,7 @@ import { login } from "../../../function/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ history }) => {
+const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

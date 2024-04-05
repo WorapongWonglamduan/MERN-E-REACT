@@ -3,7 +3,8 @@ export const userReducer = (state = null, action) => {
     case "LOGIN":
       return action.payload;
     case "LOGOUT":
-      return "  555 5logout";
+      localStorage.clear();
+      return action.payload;
     default:
       return state;
   }
