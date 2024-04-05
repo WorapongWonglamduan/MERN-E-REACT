@@ -1,11 +1,24 @@
 import React, { useState } from "react";
 import { login } from "../../../function/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ history }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState({
     username: "",
     password: "",
   });
+
+  const roleBaseRedirect = (role) => {
+    if (role === "admin") {
+      navigate("/admin/index");
+    } else {
+      navigate("/user/index");
+    }
+  };
 
   const onHandleChange = (e) => {
     const keyStr = e.target.name;
@@ -19,6 +32,17 @@ const Login = () => {
     login(value)
       .then((res) => {
         console.log("res-===>", res.data);
+
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            token: res.data.token,
+            role: res.data.payload.user.role,
+            username: res.data.payload.user.username,
+          },
+        });
+        localStorage.setItem("token", res.data.token);
+        roleBaseRedirect(res.data.payload.user.role);
       })
       .catch((err) => {
         console.error(err);

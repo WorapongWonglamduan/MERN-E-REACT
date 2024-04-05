@@ -1,9 +1,9 @@
 export const userReducer = (state = null, action) => {
   switch (action.type) {
     case "LOGIN":
-      return "login ";
+      return action.payload;
     case "LOGOUT":
-      return "logout";
+      return "  555 5logout";
     default:
       return state;
   }
