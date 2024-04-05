@@ -13,6 +13,7 @@ const Login = ({ history }) => {
   });
 
   const roleBaseRedirect = (role) => {
+    console.log("role =>", role);
     if (role === "admin") {
       navigate("/admin/index");
     } else {
