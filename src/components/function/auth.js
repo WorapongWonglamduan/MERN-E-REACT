@@ -1,10 +1,20 @@
 import axios from "axios";
+
+export const path = process.env.REACT_APP_API;
 export const register = async (value) => {
-  const path = process.env.REACT_APP_API;
   return await axios.post(path + "register", value);
 };
 export const login = async (value) => {
-  console.log("value-===>", value);
-  const path = process.env.REACT_APP_API;
   return await axios.post(path + "login", value);
+};
+export const currentUser = async (authtoken) => {
+  return await axios.post(
+    path + "current-user",
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
 };
