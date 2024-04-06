@@ -1,15 +1,15 @@
-import Login from "./components/page/auth/login/login";
-import Register from "./components/page/auth/register/register";
+import Login from "./components/page/auth/login/Login";
+import Register from "./components/page/auth/register/Register";
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/page/home/home/home";
-import Navbar from "./components/layout/navbar";
+import Home from "./components/page/home/Home";
+import Navbar from "./components/layout/Navbars";
 import React, { useState, useEffect } from "react";
 //page admin
 import AdminRoute from "./components/routes/AdminRoute";
-import HomeAdmin from "./components/page/admin/home/home";
+import HomeAdmin from "./components/page/admin/home/Home";
 //page user
 import UserRoute from "./components/routes/UserRoute";
-import HomeUser from "./components/page/user/home/home";
+import HomeUser from "./components/page/user/home/Home";
 import { currentUser } from "./components/function/auth";
 import { useDispatch } from "react-redux";
 
