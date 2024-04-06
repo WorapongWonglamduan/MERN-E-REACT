@@ -1,6 +1,6 @@
 import axios from "axios";
+import { path } from "./utils";
 
-export const path = process.env.REACT_APP_API;
 export const register = async (value) => {
   return await axios.post(path + "register", value);
 };

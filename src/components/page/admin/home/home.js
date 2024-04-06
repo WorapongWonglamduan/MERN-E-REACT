@@ -1,9 +1,17 @@
 import React from "react";
+import MenubarAdmin from "../../../layout/MenubarAdmin";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home Admin</h1>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <MenubarAdmin />
+        </div>
+        <div className="col">
+          <h1>Home Admin</h1>
+        </div>
+      </div>
     </div>
   );
 };

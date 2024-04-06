@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from "../../../function/auth";
+import { register } from "../../../function/apiAuth";
 
 const Register = () => {
   const [value, setValue] = useState({

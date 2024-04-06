@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../../../function/auth";
+import { login } from "../../../function/apiAuth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingToRedirect from "./LoadingToRedirect";
-import { currentAdmin } from "../function/auth";
+import { currentAdmin } from "../function/apiAuth";
 
 const AdminRoute = ({ children }) => {
   const { user } = useSelector((state) => ({ ...state }));

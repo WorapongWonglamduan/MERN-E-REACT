@@ -3,14 +3,15 @@ import Register from "./components/page/auth/register/Register";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/page/home/Home";
 import Navbar from "./components/layout/Navbars";
-import React, { useState, useEffect } from "react";
+import React from "react";
 //page admin
 import AdminRoute from "./components/routes/AdminRoute";
 import HomeAdmin from "./components/page/admin/home/Home";
+import ManageAdmin from "./components/page/admin/manage/ManageAdmin";
 //page user
 import UserRoute from "./components/routes/UserRoute";
 import HomeUser from "./components/page/user/home/Home";
-import { currentUser } from "./components/function/auth";
+import { currentUser } from "./components/function/apiAuth";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -45,6 +46,14 @@ function App() {
           element={
             <AdminRoute>
               <HomeAdmin />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/manage-admin"
+          element={
+            <AdminRoute>
+              <ManageAdmin />
             </AdminRoute>
           }
         />
