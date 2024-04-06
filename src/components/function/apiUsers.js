@@ -8,3 +8,10 @@ export const listUsers = async (authtoken) => {
     },
   });
 };
+export const changeStatus = async (authtoken, value) => {
+  return await axios.post(path + "change-status", value, {
+    headers: {
+      authtoken,
+    },
+  });
+};

@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
-import { listUsers } from "../../../function/apiUsers";
+import { listUsers, changeStatus } from "../../../function/apiUsers";
 import { useSelector } from "react-redux";
+import { Switch } from "antd";
 
 const ManageAdmin = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  console.log("user ->", user);
   const [data, setData] = useState([]);
   useEffect(() => {
-    loadData();
+    loadData(user.token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const loadData = () => {
-    listUsers(user.token)
+  const loadData = (authtoken) => {
+    listUsers(authtoken)
       .then((res) => {
-        console.log("res ==>", res);
         setData(res.data);
       })
       .catch((err) => {
         console.log(err);
-        setData([]);
+      });
+  };
+
+  console.log("data ->", data);
+
+  const handleOnchange = (e, id) => {
+    const value = { id: id, enabled: e };
+
+    changeStatus(user.token, value)
+      .then((res) => {
+        loadData(user.token);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (
@@ -35,30 +47,41 @@ const ManageAdmin = () => {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">username</th>
+                <th scope="col">role</th>
+                <th scope="col">status</th>
+                <th scope="col">created</th>
+                <th scope="col">updated</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+              {data &&
+                data.map((item, index) => {
+                  const count = index + 1;
+                  const username = item.username;
+                  const role = item.role;
+                  const status = item.enabled;
+                  const createdAt = item.createdAt;
+                  const updatedAt = item.updatedAt;
+                  return (
+                    <tr key={count}>
+                      <th scope="row">{count}</th>
+                      <td>{username}</td>
+                      <td>{role}</td>
+                      <td>
+                        <Switch
+                          checked={status}
+                          onChange={(e) => {
+                            handleOnchange(e, item._id);
+                          }}
+                        />
+                        {status}
+                      </td>
+                      <td>{createdAt}</td>
+                      <td>{updatedAt}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
