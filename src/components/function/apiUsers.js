@@ -15,3 +15,17 @@ export const changeStatus = async (authtoken, value) => {
     },
   });
 };
+export const changeRole = async (authtoken, value) => {
+  return await axios.post(path + "change-role", value, {
+    headers: {
+      authtoken,
+    },
+  });
+};
+export const deleteUser = async (authtoken, id) => {
+  return await axios.delete(path + "users/" + id, {
+    headers: {
+      authtoken,
+    },
+  });
+};
