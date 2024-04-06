@@ -18,3 +18,14 @@ export const currentUser = async (authtoken) => {
     }
   );
 };
+export const currentAdmin = async (authtoken) => {
+  return await axios.post(
+    path + "current-admin",
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
