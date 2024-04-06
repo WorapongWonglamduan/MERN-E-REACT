@@ -13,6 +13,7 @@ import UserRoute from "./components/routes/UserRoute";
 import HomeUser from "./components/page/user/home/Home";
 import { currentUser } from "./components/function/apiAuth";
 import { useDispatch } from "react-redux";
+import Error500 from "./components/page/error/Error500";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function App() {
             </UserRoute>
           }
         />
+        <Route path="*" element={<Error500 />} />
       </Routes>
     </div>
   );
