@@ -4,11 +4,14 @@ import { Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const items = [
+const itemsLeft = [
   {
     label: <Link to={"/"}>Home</Link>,
     key: "home",
   },
+];
+
+const itemsRight = [
   {
     label: <Link to={"/login"}>login</Link>,
     key: "login",
@@ -24,7 +27,7 @@ const items = [
     key: "logout",
     icon: <AppstoreOutlined />,
     disabled: false,
-    label: <Link to={"/logout"}>Logout</Link>,
+    label: "Logout",
     title: "Logout",
   },
 ];
@@ -43,21 +46,33 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT", payload: null });
-    navigate("/");
+    navigate("/login"); // Redirect to the login page after logout
   };
 
   // Filter out disabled items
-  const filteredItems = items.map((item) =>
+  const filteredItemsLeft = itemsLeft.map((item) =>
+    item.disabled ? { ...item, label: `${item.title}` } : item
+  );
+
+  const filteredItemsRight = itemsRight.map((item) =>
     item.disabled ? { ...item, label: `${item.title}` } : item
   );
 
   return (
-    <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={filteredItems}
-    />
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Menu
+        onClick={onClick}
+        selectedKeys={[current]}
+        mode="horizontal"
+        items={filteredItemsLeft}
+      />
+      <Menu
+        onClick={onClick}
+        selectedKeys={[current]}
+        mode="horizontal"
+        items={filteredItemsRight}
+      />
+    </div>
   );
 };
 

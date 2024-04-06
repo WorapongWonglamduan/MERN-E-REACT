@@ -51,25 +51,37 @@ const Login = () => {
       });
   };
   return (
-    <div>
-      <h1>Login</h1>
-      <form action="" onSubmit={onHandleSubmit}>
-        <label>username</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          onChange={onHandleChange}
-        />
-        <label>password</label>
-        <input
-          type="text"
-          name="password"
-          placeholder="password"
-          onChange={onHandleChange}
-        />
-        <button>Submit</button>
-      </form>
+    <div className="container p-5">
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1>Login</h1>
+          <form action="" onSubmit={onHandleSubmit}>
+            <div className="form-group">
+              <label>username</label>
+              <input
+                className="form-control"
+                type="text"
+                name="username"
+                placeholder="username"
+                onChange={onHandleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>password</label>
+              <input
+                className="form-control"
+                type="text"
+                name="password"
+                placeholder="password"
+                onChange={onHandleChange}
+              />
+            </div>
+
+            <br />
+            <button className="btn btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
