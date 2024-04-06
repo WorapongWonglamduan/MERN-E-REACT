@@ -1,24 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
 import {
   listUsers,
   changeStatus,
   changeRole,
   deleteUser,
+  resetPassword,
 } from "../../../function/apiUsers";
 import { useSelector } from "react-redux";
-import { Switch, Select, Tag } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Switch, Select, Tag, Modal } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { lastUpdateTime, thaiTime } from "../../../function/utils";
+
 const ManageAdmin = () => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const user = useSelector((state) => state.user);
+  const memoizedUser = useMemo(() => user, [user]);
 
   const [data, setData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [values, setValues] = useState({
+    id: "",
+    password: "",
+  });
+
+  const showModal = (id) => {
+    setIsModalOpen(true);
+    setValues({ ...values, id: id });
+  };
+
+  const handleChangePassword = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    resetPassword(memoizedUser.token, values.id, { values })
+      .then(() => {
+        loadData(memoizedUser.token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
-    loadData(user.token);
+    loadData(memoizedUser.token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const loadData = (authtoken) => {
-    listUsers(authtoken)
+  const loadData = (authToken) => {
+    listUsers(authToken)
       .then((res) => {
         setData(res.data);
       })
@@ -27,15 +61,13 @@ const ManageAdmin = () => {
       });
   };
 
-  console.log("data ->", data);
-
   const handleOnchangeStatus = (e, id) => {
     const value = { id: id, enabled: e };
 
-    changeStatus(user.token, value)
+    changeStatus(memoizedUser.token, value)
       .then((res) => {
         console.log("res ->", res);
-        loadData(user.token);
+        loadData(memoizedUser.token);
       })
       .catch((err) => {
         console.log(err);
@@ -44,10 +76,10 @@ const ManageAdmin = () => {
   const handleOnchangeRole = (e, id) => {
     const value = { id: id, role: e };
 
-    changeRole(user.token, value)
+    changeRole(memoizedUser.token, value)
       .then((res) => {
         console.log("res ->", res);
-        loadData(user.token);
+        loadData(memoizedUser.token);
       })
       .catch((err) => {
         console.log(err);
@@ -55,10 +87,10 @@ const ManageAdmin = () => {
   };
   const handleDelete = (id) => {
     if (window.confirm("Are You Sure Delete!!")) {
-      deleteUser(user.token, id)
+      deleteUser(memoizedUser.token, id)
         .then((res) => {
           console.log("res ->", res);
-          loadData(user.token);
+          loadData(memoizedUser.token);
         })
         .catch((err) => {
           console.log(err);
@@ -76,7 +108,7 @@ const ManageAdmin = () => {
         </div>
         <div className="col">
           <h1>Manage Admin</h1>
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -133,12 +165,17 @@ const ManageAdmin = () => {
                         />
                         {status}
                       </td>
-                      <td>{createdAt}</td>
-                      <td>{updatedAt}</td>
+                      <td>{thaiTime(createdAt)}</td>
+                      <td>{lastUpdateTime(updatedAt)}</td>
                       <td>
                         <DeleteOutlined
                           onClick={() => {
                             handleDelete(item._id);
+                          }}
+                        />
+                        <EditOutlined
+                          onClick={() => {
+                            showModal(item._id);
                           }}
                         />
                       </td>
@@ -147,6 +184,19 @@ const ManageAdmin = () => {
                 })}
             </tbody>
           </table>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <p>New Password</p>
+            <input
+              type="text"
+              name="password"
+              onChange={handleChangePassword}
+            />
+          </Modal>
         </div>
       </div>
     </div>

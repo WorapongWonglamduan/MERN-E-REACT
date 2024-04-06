@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingToRedirect from "./LoadingToRedirect";
 import { currentAdmin } from "../function/apiAuth";
 
 const AdminRoute = ({ children }) => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const user = useSelector((state) => state.user);
+  const memoizedUser = useMemo(() => user, [user]);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if (user && user.token) {
-      currentAdmin(user.token)
-        .then((res) => {
-          console.log("res=>", res);
+    if (memoizedUser && memoizedUser.token) {
+      currentAdmin(memoizedUser.token)
+        .then(() => {
           setIsAdmin(true);
         })
         .catch((err) => {
@@ -18,7 +18,7 @@ const AdminRoute = ({ children }) => {
           setIsAdmin(false);
         });
     }
-  }, [user]);
+  }, [memoizedUser]);
 
   return isAdmin ? children : <LoadingToRedirect />;
 };

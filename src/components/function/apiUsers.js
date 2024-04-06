@@ -1,31 +1,38 @@
 import axios from "axios";
 import { path } from "./utils";
 
-export const listUsers = async (authtoken) => {
+export const listUsers = async (authToken) => {
   return await axios.get(path + "users", {
     headers: {
-      authtoken,
+      authToken,
     },
   });
 };
-export const changeStatus = async (authtoken, value) => {
+export const changeStatus = async (authToken, value) => {
   return await axios.post(path + "change-status", value, {
     headers: {
-      authtoken,
+      authToken,
     },
   });
 };
-export const changeRole = async (authtoken, value) => {
+export const changeRole = async (authToken, value) => {
   return await axios.post(path + "change-role", value, {
     headers: {
-      authtoken,
+      authToken,
     },
   });
 };
-export const deleteUser = async (authtoken, id) => {
+export const deleteUser = async (authToken, id) => {
   return await axios.delete(path + "users/" + id, {
     headers: {
-      authtoken,
+      authToken,
+    },
+  });
+};
+export const resetPassword = async (authToken, id, values) => {
+  return await axios.put(path + "users/" + id, values, {
+    headers: {
+      authToken,
     },
   });
 };
