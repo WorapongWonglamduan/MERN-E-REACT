@@ -21,7 +21,8 @@ const EditCategory = () => {
     e.preventDefault();
     updateCategory(param.id, { name })
       .then((res) => {
-        loadData(param.id);
+        navigate("/admin/create-category");
+        toast.success("Update " + res.data.name + " Success !!");
       })
       .catch((err) => {
         console.log(err);
