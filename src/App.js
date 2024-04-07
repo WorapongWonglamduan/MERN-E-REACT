@@ -14,7 +14,8 @@ import HomeUser from "./components/page/user/home/Home";
 import { currentUser } from "./components/function/apiAuth";
 import { useDispatch } from "react-redux";
 import Error500 from "./components/page/error/Error500";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

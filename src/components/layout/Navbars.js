@@ -1,36 +1,13 @@
 import React, { useState } from "react";
-import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  HomeOutlined,
+  LoginOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-const itemsLeft = [
-  {
-    label: <Link to={"/"}>Home</Link>,
-    key: "home",
-  },
-];
-
-const itemsRight = [
-  {
-    label: <Link to={"/login"}>login</Link>,
-    key: "login",
-    icon: <MailOutlined />,
-  },
-  {
-    label: <Link to={"/register"}>Register</Link>,
-    key: "register",
-    icon: <AppstoreOutlined />,
-    disabled: false,
-  },
-  {
-    key: "logout",
-    icon: <AppstoreOutlined />,
-    disabled: false,
-    label: "Logout",
-    title: "Logout",
-  },
-];
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -46,33 +23,44 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT", payload: null });
-    navigate("/login"); // Redirect to the login page after logout
+    setCurrent("login");
+    navigate("/login");
   };
 
-  // Filter out disabled items
-  const filteredItemsLeft = itemsLeft.map((item) =>
-    item.disabled ? { ...item, label: `${item.title}` } : item
-  );
-
-  const filteredItemsRight = itemsRight.map((item) =>
-    item.disabled ? { ...item, label: `${item.title}` } : item
-  );
+  const items = [
+    {
+      label: <Link to={"/"}>Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to={"/login"}>Login</Link>,
+      key: "login",
+      icon: <LoginOutlined />,
+    },
+    {
+      label: <Link to={"/register"}>Register</Link>,
+      key: "register",
+      icon: <UserAddOutlined />,
+    },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: "Logout",
+      title: "Logout",
+    },
+  ];
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <>
       <Menu
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
-        items={filteredItemsLeft}
+        items={items}
+        // style={{ justifyContent: "flex-start" }} // Align the entire menu to flex-end
       />
-      <Menu
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={filteredItemsRight}
-      />
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { register } from "../../../function/apiAuth";
-
+import { toast } from "react-toastify";
 const Register = () => {
   const [value, setValue] = useState({
     username: "",
@@ -18,15 +18,14 @@ const Register = () => {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     if (value.password !== value.confirm_password) {
-      alert("Password not match");
+      toast.error("Password not match");
     } else {
       register(value)
         .then((res) => {
-          console.log("res =>", res);
+          toast.success(res.data);
         })
         .catch((error) => {
-          console.error(error);
-          alert(error.response.data);
+          toast.error(error.response.data);
         });
     }
   };

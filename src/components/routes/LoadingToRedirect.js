@@ -14,8 +14,9 @@ const LoadingToRedirect = () => {
 
     //Redirect
     count === 0 && navigate("/");
+
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
   return (
     <div>
