@@ -17,8 +17,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState("home");
 
-  console.log("memoizedUser =>", memoizedUser);
-
   const onClick = (e) => {
     setCurrent(e.key);
     if (e.key === "logout") {

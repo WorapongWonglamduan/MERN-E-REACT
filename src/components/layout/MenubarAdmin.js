@@ -12,6 +12,9 @@ const MenubarAdmin = () => {
           <li className="nav-item">
             <Link to={"/admin/manage-admin"}>จัดการผู้ใช้งาน</Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/admin/create-category"}>เพิ่มหมวดหมู่</Link>
+          </li>
         </ul>
       </nav>
     </div>

@@ -16,6 +16,10 @@ import Error500 from "./components/page/error/Error500";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/page/auth/login/login";
+import CreateCategory from "./components/page/admin/category/CreateCategory";
+import EditCategory from "./components/page/admin/category/EditCategory";
+import "./App.css";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -58,6 +62,22 @@ const App = () => {
           element={
             <AdminRoute>
               <ManageAdmin />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/create-category"
+          element={
+            <AdminRoute>
+              <CreateCategory />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-category/:id"
+          element={
+            <AdminRoute>
+              <EditCategory />
             </AdminRoute>
           }
         />
