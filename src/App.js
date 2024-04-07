@@ -1,4 +1,3 @@
-import Login from "./components/page/auth/login/Login";
 import Register from "./components/page/auth/register/Register";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/page/home/Home";
@@ -16,7 +15,8 @@ import { useDispatch } from "react-redux";
 import Error500 from "./components/page/error/Error500";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function App() {
+import Login from "./components/page/auth/login/login";
+const App = () => {
   const dispatch = useDispatch();
 
   const idToken = localStorage.token;
@@ -30,6 +30,7 @@ function App() {
             token: idToken,
             role: res.data.role,
             username: res.data.username,
+            // id: res.data._id,
           },
         });
       })
@@ -73,6 +74,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 
 export default App;

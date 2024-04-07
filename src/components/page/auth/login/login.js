@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { login } from "../../../function/apiAuth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { Spin } from "antd";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const [value, setValue] = useState({
     username: "",
@@ -29,32 +31,41 @@ const Login = () => {
   };
 
   const onHandleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     login(value)
       .then((res) => {
-        console.log("res-===>", res.data);
-
+        toast.success("Login Success");
         dispatch({
           type: "LOGIN",
           payload: {
             token: res.data.token,
             role: res.data.payload.user.role,
             username: res.data.payload.user.username,
+            // id: res.data.payload.user._id,
           },
         });
         localStorage.setItem("token", res.data.token);
         roleBaseRedirect(res.data.payload.user.role);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        alert(err.response.data);
+        toast.error(err.response.data);
+        setLoading(false);
       });
   };
   return (
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h1>Login</h1>
+          {loading ? (
+            <h1>
+              Loading ... <Spin />
+            </h1>
+          ) : (
+            <h1>Login</h1>
+          )}
           <form action="" onSubmit={onHandleSubmit}>
             <div className="form-group">
               <label>username</label>

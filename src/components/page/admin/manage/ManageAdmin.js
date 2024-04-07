@@ -7,14 +7,17 @@ import {
   deleteUser,
   resetPassword,
 } from "../../../function/apiUsers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Switch, Select, Tag, Modal } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { lastUpdateTime, thaiTime } from "../../../function/utils";
+import { useNavigate } from "react-router-dom";
 
 const ManageAdmin = () => {
   const user = useSelector((state) => state.user);
   const memoizedUser = useMemo(() => user, [user]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +61,8 @@ const ManageAdmin = () => {
       })
       .catch((err) => {
         console.log(err);
+        dispatch({ type: "LOGOUT", payload: null });
+        navigate("/login");
       });
   };
 
