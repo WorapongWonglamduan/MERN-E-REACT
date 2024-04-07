@@ -13,7 +13,7 @@ const LoadingToRedirect = () => {
     }, 1000);
 
     //Redirect
-    count === 0 && navigate("/");
+    count === 0 && navigate("/login");
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
