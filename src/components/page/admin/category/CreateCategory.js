@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
 import {
   createCategory,
@@ -6,8 +6,11 @@ import {
   deleteCategory,
 } from "../../../function/apiCategory";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const CreateCategory = () => {
+  const user = useSelector((state) => state.user);
+  const memoizedUser = useMemo(() => user, [user]);
   const [values, setValues] = useState({ name: "" });
   const [category, setCategory] = useState([]);
 
@@ -16,17 +19,18 @@ const CreateCategory = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    createCategory(values)
+    createCategory(memoizedUser.token, values)
       .then((res) => {
-        loadData();
+        loadData(memoizedUser.token);
+        toast.success("Insert Data " + res.data.name + " Success !!");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const loadData = () => {
-    listCategory()
+  const loadData = (authToken) => {
+    listCategory(authToken)
       .then((res) => {
         setCategory(res.data);
       })
@@ -36,17 +40,17 @@ const CreateCategory = () => {
   };
 
   const handleDelete = (id) => {
-    deleteCategory(id)
+    deleteCategory(memoizedUser.token, id)
       .then((res) => {
-        loadData();
-        console.log("res=>", res);
+        loadData(memoizedUser.token);
+        toast.success("Remove Data " + res.data.name + " Success !!");
       })
       .catch((err) => {
         console.log(err);
       });
   };
   useEffect(() => {
-    loadData();
+    loadData(memoizedUser.token);
   }, []);
   return (
     <div className="container-fluid">

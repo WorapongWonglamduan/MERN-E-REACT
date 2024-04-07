@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
 import { editCategory, updateCategory } from "../../../function/apiCategory";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const EditCategory = () => {
+  const user = useSelector((state) => state.user);
+  const memoizedUser = useMemo(() => user, [user]);
   const navigate = useNavigate();
   const param = useParams();
   const [name, setName] = useState("");
 
-  const loadData = (id) => {
-    editCategory(id)
+  const loadData = (authToken, id) => {
+    editCategory(authToken, id)
       .then((res) => {
         setName(res.data.name);
       })
@@ -19,7 +22,7 @@ const EditCategory = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateCategory(param.id, { name })
+    updateCategory(memoizedUser.token, param.id, { name })
       .then((res) => {
         navigate("/admin/create-category");
         toast.success("Update " + res.data.name + " Success !!");
@@ -29,7 +32,7 @@ const EditCategory = () => {
       });
   };
   useEffect(() => {
-    loadData(param.id);
+    loadData(memoizedUser.token, param.id);
   }, []);
   return (
     <div className="container-fluid">
