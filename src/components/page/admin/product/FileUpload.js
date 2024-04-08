@@ -90,6 +90,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
               >
                 <Avatar
                   className="m-3"
+                  style={{ cursor: "pointer" }}
                   src={item.url}
                   shape="square"
                   size={120}

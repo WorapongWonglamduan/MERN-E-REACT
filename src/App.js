@@ -25,6 +25,7 @@ import CreateCategory from "./components/page/admin/category/CreateCategory";
 import EditCategory from "./components/page/admin/category/EditCategory";
 //page product
 import CreateProduct from "./components/page/admin/product/CreateProduct";
+import EditProduct from "./components/page/admin/product/EditProduct";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -101,6 +102,14 @@ const App = () => {
           element={
             <AdminRoute>
               <CreateProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-product/:id"
+          element={
+            <AdminRoute>
+              <EditProduct />
             </AdminRoute>
           }
         />

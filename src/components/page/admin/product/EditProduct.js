@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { createProduct } from "../../../function/apiProduct";
-import { listCategory } from "../../../function/apiCategory";
-import FileUpload from "./FileUpload";
 import { Spin } from "antd";
+import { editProduct, updateProduct } from "../../../function/apiProduct";
+import { useParams, useNavigate } from "react-router-dom";
+import { listCategory } from "../../../function/apiCategory";
+import { useSelector } from "react-redux";
+import FileUpload from "./FileUpload";
+import { toast } from "react-toastify";
 
 const initialState = {
   title: "",
@@ -16,44 +17,53 @@ const initialState = {
   quantity: "",
   images: [],
 };
-const CreateProduct = () => {
+const EditProduct = () => {
+  const navigate = useNavigate();
+  const param = useParams();
+  const { id } = param;
+
   const user = useSelector((state) => state.user);
   const memoizedUser = useMemo(() => user, [user]);
-  const [values, setValues] = useState(initialState);
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState(initialState);
+  const [categories, setCategories] = useState([]);
+
+  const loadData = (authToken, id) => {
+    editProduct(authToken, id)
+      .then((res) => {
+        setValues({ ...values, ...res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    listCategory(authToken)
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProduct(memoizedUser.token, values)
+    updateProduct(memoizedUser.token, id, values)
       .then((res) => {
-        loadData(memoizedUser.token);
         toast.success("Insert Data " + res.data.title + " Success !!");
+        navigate("/admin/index");
+        // loadData(memoizedUser.token, id);
       })
       .catch((err) => {
-        console.log(err);
-        toast.error(err.response.data);
-      });
-  };
-
-  const loadData = (authToken) => {
-    listCategory(authToken)
-      .then((res) => {
-        setValues({
-          ...initialState,
-          categories: res.data,
-          images: [],
-        });
-      })
-      .catch((err) => {
+        toast.error("Update Fail !!");
         console.log(err);
       });
   };
-
   useEffect(() => {
-    loadData(memoizedUser.token);
+    loadData(memoizedUser.token, id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -68,7 +78,7 @@ const CreateProduct = () => {
               Loading ... <Spin />
             </h1>
           ) : (
-            <h1>Create Product</h1>
+            <h1>Update Products</h1>
           )}
 
           <form onSubmit={handleSubmit}>
@@ -118,12 +128,12 @@ const CreateProduct = () => {
                 name="category"
                 className="form-control"
                 onChange={handleChange}
-                value={values.category}
+                value={values.category._id}
                 required
               >
                 <option>Please Select</option>
-                {values.categories.length > 0 &&
-                  values.categories.map((item, index) => (
+                {categories.length > 0 &&
+                  categories.map((item, index) => (
                     <option key={index} value={item._id}>
                       {item.name}
                     </option>
@@ -144,4 +154,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

@@ -30,10 +30,15 @@ const Navbar = () => {
     navigate("/login");
     toast.success("Logout");
   };
+  const isLogin = memoizedUser
+    ? memoizedUser.role === "admin"
+      ? "/admin/index"
+      : "/user/index"
+    : "/";
 
   const items = [
     {
-      label: <Link to={"/"}>Home</Link>,
+      label: <Link to={isLogin}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
