@@ -30,7 +30,7 @@ const EditProduct = () => {
   const [categories, setCategories] = useState([]);
 
   const loadData = (authToken, id) => {
-    editProduct(authToken, id)
+    editProduct(id)
       .then((res) => {
         setValues({ ...values, ...res.data });
       })

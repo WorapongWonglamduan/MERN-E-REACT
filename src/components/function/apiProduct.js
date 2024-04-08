@@ -18,12 +18,8 @@ export const deleteProduct = async (authToken, id) => {
     },
   });
 };
-export const editProduct = async (authToken, id) => {
-  return await axios.get(path + "products/" + id, {
-    headers: {
-      authToken,
-    },
-  });
+export const editProduct = async (id) => {
+  return await axios.get(path + "products/" + id);
 };
 export const updateProduct = async (authToken, id, values) => {
   return await axios.put(path + "product/" + id, values, {
@@ -31,4 +27,8 @@ export const updateProduct = async (authToken, id, values) => {
       authToken,
     },
   });
+};
+export const listProductBy = async (sort, order, limit) => {
+  const values = { sort, order, limit };
+  return await axios.post(path + "product-by", values);
 };

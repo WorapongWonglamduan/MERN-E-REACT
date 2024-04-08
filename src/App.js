@@ -26,6 +26,7 @@ import EditCategory from "./components/page/admin/category/EditCategory";
 //page product
 import CreateProduct from "./components/page/admin/product/CreateProduct";
 import EditProduct from "./components/page/admin/product/EditProduct";
+import Product from "./components/page/product/Product";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/product/:id" element={<Product />} />
+
         <Route
           path="/user/index"
           element={

@@ -20,6 +20,8 @@ const ManageAdmin = () => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
+
+  const [selectData, setSelectData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState({
     id: "",
@@ -58,6 +60,7 @@ const ManageAdmin = () => {
     listUsers(authToken)
       .then((res) => {
         setData(res.data);
+        setSelectData(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -105,6 +108,19 @@ const ManageAdmin = () => {
 
   const dataRole = ["admin", "user"];
 
+  const handleSelectRole = (e) => {
+    const value = e;
+    if (value === "all") {
+      setSelectData(data);
+    } else {
+      const filterData = data.filter((item) => {
+        return item.role === value;
+      });
+
+      setSelectData(filterData);
+    }
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -113,6 +129,23 @@ const ManageAdmin = () => {
         </div>
         <div className="col">
           <h1>Manage Admin</h1>
+          <Select
+            defaultValue={"all"}
+            onChange={(e) => {
+              handleSelectRole(e);
+            }}
+          >
+            <Select.Option value={"all"}>all</Select.Option>
+
+            {dataRole &&
+              dataRole.map((item, index) => {
+                return (
+                  <Select.Option key={index} value={item}>
+                    {item}
+                  </Select.Option>
+                );
+              })}
+          </Select>
           <table className="table">
             <thead>
               <tr>
@@ -126,8 +159,8 @@ const ManageAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {data &&
-                data.map((item, index) => {
+              {selectData &&
+                selectData.map((item, index) => {
                   const count = index + 1;
                   const username = item.username;
                   const role = item.role;

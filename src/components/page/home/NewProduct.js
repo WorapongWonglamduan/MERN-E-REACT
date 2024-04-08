@@ -1,0 +1,53 @@
+import React, { useEffect, useState } from "react";
+import { listProductBy } from "../../function/apiProduct";
+import ProductCard from "../../card/ProductCard";
+import { Spin } from "antd";
+import LoadingCard from "../../card/LoadingCard";
+const NewProduct = () => {
+  const [loading, setLoading] = useState(false);
+  const [product, setProduct] = useState([]);
+
+  const sort = "createdAt";
+  const order = "desc";
+  const limit = 100;
+  const loadData = () => {
+    setLoading(true);
+    listProductBy(sort, order, limit)
+      .then((res) => {
+        setProduct(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  return (
+    <>
+      <div className="container">
+        <div className="row">
+          {loading ? (
+            <LoadingCard count={3} />
+          ) : (
+            <>
+              {product &&
+                product.map((item, index) => {
+                  return (
+                    <div className="col-md-4 mb-4" key={index}>
+                      <ProductCard product={item} />
+                    </div>
+                  );
+                })}
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default NewProduct;
