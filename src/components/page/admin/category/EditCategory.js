@@ -33,6 +33,7 @@ const EditCategory = () => {
   };
   useEffect(() => {
     loadData(memoizedUser.token, param.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="container-fluid">

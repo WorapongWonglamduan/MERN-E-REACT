@@ -51,6 +51,7 @@ const CreateCategory = () => {
   };
   useEffect(() => {
     loadData(memoizedUser.token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="container-fluid">

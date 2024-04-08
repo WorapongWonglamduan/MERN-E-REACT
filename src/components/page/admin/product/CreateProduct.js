@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { createProduct } from "../../../function/apiProduct";
 import { listCategory } from "../../../function/apiCategory";
 import FileUpload from "./FileUpload";
+import { Spin } from "antd";
 
 const initialState = {
   title: "",
@@ -19,6 +20,7 @@ const CreateProduct = () => {
   const user = useSelector((state) => state.user);
   const memoizedUser = useMemo(() => user, [user]);
   const [values, setValues] = useState(initialState);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -47,6 +49,7 @@ const CreateProduct = () => {
   console.log("values ->", values);
   useEffect(() => {
     loadData(memoizedUser.token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="container-fluid">
@@ -55,7 +58,14 @@ const CreateProduct = () => {
           <MenubarAdmin />
         </div>
         <div className="col">
-          <h1>Create Product</h1>
+          {loading ? (
+            <h1>
+              Loading ... <Spin />
+            </h1>
+          ) : (
+            <h1>Create Product</h1>
+          )}
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>title</label>
@@ -113,7 +123,12 @@ const CreateProduct = () => {
                   ))}
               </select>
             </div>
-            <FileUpload />
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              loading={loading}
+              setLoading={setLoading}
+            />
             <button className="btn btn-outline-primary">Submit</button>
           </form>
         </div>

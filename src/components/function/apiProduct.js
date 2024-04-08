@@ -8,12 +8,8 @@ export const createProduct = async (authToken, values) => {
     },
   });
 };
-export const listProduct = async (authToken) => {
-  return await axios.get(path + "product", {
-    headers: {
-      authToken,
-    },
-  });
+export const listProduct = async (count) => {
+  return await axios.get(path + "product/" + count);
 };
 // export const deleteCategory = async (authToken, id) => {
 //   return await axios.delete(path + "category/" + id, {
