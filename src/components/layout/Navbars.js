@@ -4,6 +4,7 @@ import {
   HomeOutlined,
   LoginOutlined,
   UserAddOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -41,6 +42,11 @@ const Navbar = () => {
       label: <Link to={isLogin}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to={"/shop"}>Shop</Link>,
+      key: "shop",
+      icon: <ShoppingOutlined />,
     },
     !memoizedUser && {
       label: <Link to={"/login"}>Login</Link>,

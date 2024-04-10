@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { listProductBy } from "../../function/apiProduct";
 import ProductCard from "../../card/ProductCard";
-import { Spin } from "antd";
 import LoadingCard from "../../card/LoadingCard";
 const NewProduct = () => {
   const [loading, setLoading] = useState(false);

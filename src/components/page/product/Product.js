@@ -27,7 +27,7 @@ const Product = () => {
       <div className="row pt-4">
         <SingleProductCard product={product} />
       </div>
-      <div className="row">{JSON.stringify(product)}</div>
+      <div className="row"></div>
     </div>
   );
 };
