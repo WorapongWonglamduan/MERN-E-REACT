@@ -4,13 +4,14 @@ import {
   HomeOutlined,
   LoginOutlined,
   UserAddOutlined,
-  ShoppingOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import Search from "../card/Search";
 const Navbar = () => {
   const user = useSelector((state) => state.user);
   const memoizedUser = useMemo(() => user, [user]);
@@ -46,7 +47,7 @@ const Navbar = () => {
     {
       label: <Link to={"/shop"}>Shop</Link>,
       key: "shop",
-      icon: <ShoppingOutlined />,
+      icon: <ShoppingCartOutlined />,
     },
     !memoizedUser && {
       label: <Link to={"/login"}>Login</Link>,
@@ -64,6 +65,7 @@ const Navbar = () => {
       label: "Logout",
       title: "Logout",
     },
+    { label: <Search />, key: "search" }, // Add the Search component here
   ];
 
   return (

@@ -9,8 +9,8 @@ import { currentUser } from "./components/function/apiAuth";
 //page Error
 import Error500 from "./components/page/error/Error500";
 //page Auth
-import Register from "./components/page/auth/register/Register";
-import Login from "./components/page/auth/login/login";
+import Register from "./components/page/auth/register/Registers";
+import Login from "./components/page/auth/login/Login";
 import Home from "./components/page/home/Home";
 import Navbar from "./components/layout/Navbars";
 //page admin
