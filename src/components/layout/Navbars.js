@@ -65,7 +65,7 @@ const Navbar = () => {
       label: "Logout",
       title: "Logout",
     },
-    { label: <Search />, key: "search" }, // Add the Search component here
+    { label: <Search />, key: "search" },
   ];
 
   return (
@@ -75,7 +75,6 @@ const Navbar = () => {
         selectedKeys={[current]}
         mode="horizontal"
         items={items}
-        // style={{ justifyContent: "flex-start" }} // Align the entire menu to flex-end
       />
     </>
   );
