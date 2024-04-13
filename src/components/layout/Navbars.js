@@ -5,16 +5,23 @@ import {
   LoginOutlined,
   UserAddOutlined,
   ShoppingCartOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import Search from "../card/Search";
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
-  const memoizedUser = useMemo(() => user, [user]);
+  const { user, cart } = useSelector(
+    (state) => ({
+      user: state.user,
+      cart: state.cart,
+    }),
+    shallowEqual
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [current, setCurrent] = useState("home");
@@ -32,8 +39,8 @@ const Navbar = () => {
     navigate("/login");
     toast.success("Logout");
   };
-  const isLogin = memoizedUser
-    ? memoizedUser.role === "admin"
+  const isLogin = user
+    ? user.role === "admin"
       ? "/admin/index"
       : "/user/index"
     : "/";
@@ -47,19 +54,30 @@ const Navbar = () => {
     {
       label: <Link to={"/shop"}>Shop</Link>,
       key: "shop",
+      icon: <ShoppingOutlined />,
+    },
+    {
+      label: (
+        <Link to={"/cart"}>
+          <Badge count={cart.length} offset={[9, 0]}>
+            Cart
+          </Badge>
+        </Link>
+      ),
+      key: "cart",
       icon: <ShoppingCartOutlined />,
     },
-    !memoizedUser && {
+    !user && {
       label: <Link to={"/login"}>Login</Link>,
       key: "login",
       icon: <LoginOutlined />,
     },
-    !memoizedUser && {
+    !user && {
       label: <Link to={"/register"}>Register</Link>,
       key: "register",
       icon: <UserAddOutlined />,
     },
-    memoizedUser && {
+    user && {
       key: "logout",
       icon: <LogoutOutlined />,
       label: "Logout",

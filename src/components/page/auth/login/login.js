@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { login } from "../../../function/apiAuth";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { state } = location;
+
   const [loading, setLoading] = useState(false);
 
   const [value, setValue] = useState({
@@ -15,11 +18,16 @@ const Login = () => {
   });
 
   const roleBaseRedirect = (role) => {
-    console.log("role =>", role);
-    if (role === "admin") {
-      navigate("/admin/index");
+    let intended = state;
+
+    if (intended) {
+      navigate("../" + intended);
     } else {
-      navigate("/user/index");
+      if (role === "admin") {
+        navigate("/admin/index");
+      } else {
+        navigate("/user/index");
+      }
     }
   };
 

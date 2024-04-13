@@ -30,6 +30,8 @@ import Product from "./components/page/product/Product";
 
 //page shop
 import Shop from "./components/page/shop/Shop";
+//page cart
+import Cart from "./components/page/cart/Cart";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,6 +63,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
 
         <Route
           path="/user/index"
