@@ -38,7 +38,6 @@ const App = () => {
   if (idToken) {
     currentUser(idToken)
       .then((res) => {
-        console.log("res auth =>", res.data);
         dispatch({
           type: "LOGIN",
           payload: {

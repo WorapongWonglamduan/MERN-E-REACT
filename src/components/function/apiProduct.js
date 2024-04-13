@@ -32,3 +32,6 @@ export const listProductBy = async (sort, order, limit) => {
   const values = { sort, order, limit };
   return await axios.post(path + "product-by", values);
 };
+export const searchFilters = async (arg) => {
+  return await axios.post(path + "search/filters", arg);
+};

@@ -7,7 +7,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
   const { text } = useMemo(() => search, [search]);
-  console.log("text===>", text);
+
   const handleChange = (e) => {
     dispatch({ type: "SEARCH_QUERY", payload: { text: e.target.value } });
   };
