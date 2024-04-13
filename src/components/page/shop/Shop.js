@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { listProduct, searchFilters } from "../../function/apiProduct";
 import ProductCard from "../../card/ProductCard";
 import { useSelector } from "react-redux";
-import { Slider } from "antd";
+import { Checkbox, Slider } from "antd";
+import { listCategory } from "../../function/apiCategory";
 
 const Shop = () => {
   const search = useSelector((state) => state.search);
@@ -13,6 +14,8 @@ const Shop = () => {
   const [product, setProduct] = useState([]);
   const [price, setPrice] = useState([1, 10000]);
   const [isPrice, setIsPrice] = useState(false);
+  const [categorySelect, setCategorySelect] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const count = 100;
   const loadData = () => {
@@ -20,6 +23,15 @@ const Shop = () => {
     listProduct(count)
       .then((res) => {
         setProduct(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+    listCategory()
+      .then((res) => {
+        setCategories(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,13 +52,39 @@ const Shop = () => {
         console.log(err);
       });
   };
+  const handleCheckBox = (e) => {
+    let inCheck = e.target.value;
+
+    let inState = [...categorySelect];
+
+    let findCheck = inState.indexOf(inCheck);
+
+    if (findCheck === -1) {
+      inState.push(inCheck);
+    } else {
+      inState.splice(findCheck, 1);
+    }
+    setCategorySelect(inState);
+    fetchDataFilter({ category: inState });
+    if (inState.length < 1) {
+      loadData();
+    }
+    // setCategorySelect((prev) => {
+    //   const findId = prev.find((item) => item === isCheck);
+    //   if (findId) {
+    //     return prev.filter((item) => item !== findId);
+    //   } else {
+    //     return [...prev, isCheck];
+    //   }
+    // });
+  };
 
   useEffect(() => {
     const delay = setTimeout(() => {
       if (!text) {
         loadData();
       } else {
-        fetchDataFilter({ query: text });
+        fetchDataFilter({ text: text });
       }
     }, 300);
 
@@ -81,6 +119,22 @@ const Shop = () => {
                 value={[price[0], price[1]]}
                 max={100000}
               />
+            </h4>
+            <hr />
+            <h4>
+              ค้นหาตามหมวดหมู่สินค้า
+              {categories.map((item, index) => {
+                return (
+                  <Checkbox
+                    key={index}
+                    checked={categorySelect.find((f) => f === item._id)}
+                    value={item._id}
+                    onChange={handleCheckBox}
+                  >
+                    {item.name}
+                  </Checkbox>
+                );
+              })}
             </h4>
           </div>
           <div className="col-md-9">
