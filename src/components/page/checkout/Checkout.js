@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { getUserCart } from "../../function/apiUsers";
-
+import { getUserCart, saveAddress } from "../../function/apiUsers";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const Checkout = () => {
   const { user } = useSelector(
     (state) => ({
@@ -12,6 +13,8 @@ const Checkout = () => {
 
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [address, setAddress] = useState("");
+  const [addressSaved, setAddressSaved] = useState(false);
 
   const loadData = () => {
     getUserCart(user.token)
@@ -23,11 +26,21 @@ const Checkout = () => {
         console.log(err);
       });
   };
+  const handleSavedAddress = () => {
+    saveAddress(user.token, address)
+      .then((res) => {
+        console.log("res==>", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     loadData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -35,6 +48,10 @@ const Checkout = () => {
           <h4>Address</h4>
           <br />
           text area
+          <ReactQuill value={address} onChange={setAddress} />
+          <button className="btn btn-primary m-2" onClick={handleSavedAddress}>
+            Save Address
+          </button>
         </div>
         <div className="col">
           Order Summary

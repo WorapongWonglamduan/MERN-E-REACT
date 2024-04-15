@@ -44,10 +44,20 @@ export const userCart = async (authToken, cart) => {
   });
 };
 export const getUserCart = async (authToken) => {
- 
   return await axios.get(path + "user/cart", {
     headers: {
       authToken,
     },
   });
+};
+export const saveAddress = async (authToken, address) => {
+  return await axios.post(
+    path + "user/address",
+    { address },
+    {
+      headers: {
+        authToken,
+      },
+    }
+  );
 };
