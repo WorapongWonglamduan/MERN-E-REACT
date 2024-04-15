@@ -61,3 +61,14 @@ export const saveAddress = async (authToken, address) => {
     }
   );
 };
+export const saveOrder = async (authToken) => {
+  return await axios.post(
+    path + "user/order",
+    {},
+    {
+      headers: {
+        authToken,
+      },
+    }
+  );
+};

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { getUserCart, saveAddress } from "../../function/apiUsers";
+import { getUserCart, saveAddress, saveOrder } from "../../function/apiUsers";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
 const Checkout = () => {
   const { user } = useSelector(
     (state) => ({
@@ -29,13 +30,23 @@ const Checkout = () => {
   const handleSavedAddress = () => {
     saveAddress(user.token, address)
       .then((res) => {
-        console.log("res==>", res);
+        toast.success(res.data.message);
+        setAddressSaved(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const handleCreateOrder = () => {
+    saveOrder(user.token)
+      .then((res) => {
+        console.log("res ==>", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,6 +81,14 @@ const Checkout = () => {
           })}
           <hr />
           Total : <b>{totalPrice}</b>
+          <br />
+          <button
+            onClick={handleCreateOrder}
+            disabled={!addressSaved || !products.length}
+            className="btn btn-primary m-3"
+          >
+            Check Out
+          </button>
         </div>
       </div>
     </div>
