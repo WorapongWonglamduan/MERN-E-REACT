@@ -1,6 +1,7 @@
 import React from "react";
 import BestSeller from "./BestSeller";
 import NewProduct from "./NewProduct";
+import { shallowEqual, useSelector } from "react-redux";
 
 const Home = () => {
   return (

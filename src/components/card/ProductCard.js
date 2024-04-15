@@ -20,6 +20,7 @@ const ProductCard = ({ product }) => {
     let unique = _.uniqWith(cart, _.isEqual);
     localStorage.setItem("cart", JSON.stringify(unique));
     dispatch({ type: "ADD_TO_CART", payload: unique });
+    dispatch({ type: "DRAWER_VISIBLE", payload: true });
   };
   return (
     <Card

@@ -1,9 +1,12 @@
 import React, { useMemo } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ProductTableInCart from "./ProductTableInCart";
+import { userCart } from "../../function/apiUsers";
 
 const Cart = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, cart } = useSelector(
     (state) => ({
       cart: state.cart,
@@ -17,11 +20,42 @@ const Cart = () => {
       return (sumValue += currentValue.count * currentValue.price);
     }, 0);
   };
-  const handleSaveOrder = () => {};
+  const handleSaveOrder = () => {
+    userCart(user.token, { cart: cart })
+      .then((res) => {
+        console.log("res ==>", res);
+        navigate("/checkout");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const CartItemTable = () => {
+    return (
+      <table className="table table-bordered">
+        <thead className="thead-light">
+          <tr>
+            <td>Image</td>
+            <td>Title</td>
+            <td>Price</td>
+            <td>Count</td>
+            <td>Remove</td>
+          </tr>
+        </thead>
+
+        {cart.map((item) => {
+          return <ProductTableInCart item={item} key={item._id} />;
+        })}
+      </table>
+    );
+  };
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-8">Table Cart</div>
+        <div className="col-md-8">
+          <h4>Cart / {cart.length} product</h4>
+          {!cart.length ? <p>No product in cart</p> : <CartItemTable />}
+        </div>
         <div className="col-md-4">
           <h4>Summary</h4>
           <hr />

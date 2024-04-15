@@ -149,7 +149,7 @@ const Shop = () => {
               {product &&
                 product.map((item, index) => {
                   return (
-                    <div className="col-md-4 mt-3" key={index}>
+                    <div className="col-md-4 mt-3" key={item._id}>
                       <ProductCard product={item} />
                     </div>
                   );

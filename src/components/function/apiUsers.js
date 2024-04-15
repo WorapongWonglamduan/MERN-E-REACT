@@ -36,3 +36,18 @@ export const resetPassword = async (authToken, id, values) => {
     },
   });
 };
+export const userCart = async (authToken, cart) => {
+  return await axios.post(path + "user/cart", cart, {
+    headers: {
+      authToken,
+    },
+  });
+};
+export const getUserCart = async (authToken) => {
+ 
+  return await axios.get(path + "user/cart", {
+    headers: {
+      authToken,
+    },
+  });
+};

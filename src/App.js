@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import React from "react";
 import { useDispatch } from "react-redux";
+import SideDrawer from "./components/drawer/SideDrawer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -32,6 +33,7 @@ import Product from "./components/page/product/Product";
 import Shop from "./components/page/shop/Shop";
 //page cart
 import Cart from "./components/page/cart/Cart";
+import Checkout from "./components/page/checkout/Checkout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -57,6 +59,7 @@ const App = () => {
     <div className="App">
       <ToastContainer />
       <Navbar />
+      <SideDrawer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -70,6 +73,14 @@ const App = () => {
           element={
             <UserRoute>
               <HomeUser />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <UserRoute>
+              <Checkout />
             </UserRoute>
           }
         />
