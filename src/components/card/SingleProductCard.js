@@ -4,14 +4,18 @@ import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
+import { toast } from "react-toastify";
+import { addToWishlist } from "../function/apiUsers";
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const SingleProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
   const { _id, title, description, images, price, quantity, sold, category } =
     product;
+
   const itemsTabs = [
     {
       key: "1",
@@ -36,6 +40,21 @@ const SingleProductCard = ({ product }) => {
     dispatch({ type: "ADD_TO_CART", payload: unique });
     dispatch({ type: "DRAWER_VISIBLE", payload: true });
   };
+
+  const handleAddToWishlist = (_id) => {
+    if (user) {
+      addToWishlist(user.token, _id)
+        .then((res) => {
+          toast.success("Add To Wishlist Success !!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      toast.error("Go To Login !!");
+      return;
+    }
+  };
   return (
     <>
       <div className="col-md-7">
@@ -57,11 +76,11 @@ const SingleProductCard = ({ product }) => {
         <Card
           key={_id}
           actions={[
-            <Link to={"/"}>
+            <a onClick={() => handleAddToWishlist(_id)}>
               <HeartOutlined className="text-info" />
               <br />
               Add to wishlist
-            </Link>,
+            </a>,
             <>
               <ShoppingCartOutlined
                 onClick={handleAddToCart}

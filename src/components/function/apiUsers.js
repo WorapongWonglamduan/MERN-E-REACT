@@ -79,3 +79,33 @@ export const emptyCart = async (authToken) => {
     },
   });
 };
+export const getWishlist = async (authToken) => {
+  return await axios.get(path + "user/wishlist", {
+    headers: {
+      authToken,
+    },
+  });
+};
+export const addToWishlist = async (authToken, productId) => {
+  return await axios.post(
+    path + "user/wishlist",
+    { productId },
+    {
+      headers: {
+        authToken,
+      },
+    }
+  );
+};
+
+export const removeWishlist = async (authToken, productId) => {
+  return await axios.put(
+    path + "user/wishlist/" + productId,
+    {},
+    {
+      headers: {
+        authToken,
+      },
+    }
+  );
+};

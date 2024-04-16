@@ -39,15 +39,12 @@ const Navbar = () => {
     navigate("/login");
     toast.success("Logout");
   };
-  const isLogin = user
-    ? user.role === "admin"
-      ? "/admin/index"
-      : "/user/index"
-    : "/";
+  const isLogin =
+    user && user.role === "admin" ? "/admin/index" : "/user/index";
 
   const items = [
     {
-      label: <Link to={isLogin}>Home</Link>,
+      label: <Link to={"/"}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
@@ -82,6 +79,12 @@ const Navbar = () => {
       icon: <LogoutOutlined />,
       label: "Logout",
       title: "Logout",
+    },
+    user && {
+      key: "dashboard",
+      // icon: <LogoutOutlined />,
+      label: <Link to={isLogin}>Dashboard</Link>,
+      title: "Dashboard",
     },
     { label: <Search />, key: "search" },
   ];

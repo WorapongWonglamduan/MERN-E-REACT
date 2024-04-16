@@ -35,6 +35,9 @@ import Shop from "./components/page/shop/Shop";
 import Cart from "./components/page/cart/Cart";
 import Checkout from "./components/page/checkout/Checkout";
 
+//page wishlist
+import Wishlist from "./components/page/user/wishlist/Wishlist";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -81,6 +84,14 @@ const App = () => {
           element={
             <UserRoute>
               <Checkout />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/user/wishlist"
+          element={
+            <UserRoute>
+              <Wishlist />
             </UserRoute>
           }
         />
