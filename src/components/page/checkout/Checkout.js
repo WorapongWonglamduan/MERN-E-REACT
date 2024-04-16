@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { shallowEqual, useSelector } from "react-redux";
-import { getUserCart, saveAddress, saveOrder } from "../../function/apiUsers";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import {
+  emptyCart,
+  getUserCart,
+  saveAddress,
+  saveOrder,
+} from "../../function/apiUsers";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 const Checkout = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector(
     (state) => ({
       user: state.user,
@@ -41,7 +47,19 @@ const Checkout = () => {
   const handleCreateOrder = () => {
     saveOrder(user.token)
       .then((res) => {
-        console.log("res ==>", res);
+        if (res) {
+          emptyCart(user.token)
+            .then((res) => {
+              toast.success("Save Order Success !!");
+              dispatch({ type: "ADD_TO_CART", payload: [] });
+              if (typeof window !== "undefined") {
+                localStorage.removeItem("cart");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       })
       .catch((err) => {
         console.log(err);

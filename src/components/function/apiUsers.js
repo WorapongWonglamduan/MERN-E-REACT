@@ -72,3 +72,10 @@ export const saveOrder = async (authToken) => {
     }
   );
 };
+export const emptyCart = async (authToken) => {
+  return await axios.delete(path + "user/cart", {
+    headers: {
+      authToken,
+    },
+  });
+};
