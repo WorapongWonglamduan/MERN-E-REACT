@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MenubarUser from "../../../layout/MenubarUser";
 import { getWishlist, removeWishlist } from "../../../function/apiUsers";
 import { shallowEqual, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -43,8 +44,9 @@ const Wishlist = () => {
             {wishlist.length &&
               wishlist.map((item, index) => {
                 return (
-                  <div key={index} className="alert alert-secondary">
-                    {item.title}
+                  <div className="alert alert-secondary" key={index}>
+                    <Link to={"/product/" + item._id}>{item.title}</Link>
+
                     <span
                       onClick={() => handleRemove(item._id)}
                       style={{ float: "right" }}

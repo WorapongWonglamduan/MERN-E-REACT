@@ -9,6 +9,9 @@ const MenubarUser = () => {
           <li className="nav-item">
             <Link to={"/user/wishlist"}>สินค้าที่สนใจ</Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/user/history"}>ประวัติการสั่งซื้อ</Link>
+          </li>
         </ul>
       </nav>
     </div>

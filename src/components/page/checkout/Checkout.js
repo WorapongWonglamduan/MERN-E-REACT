@@ -9,7 +9,9 @@ import {
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const Checkout = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector(
     (state) => ({
@@ -52,6 +54,7 @@ const Checkout = () => {
             .then((res) => {
               toast.success("Save Order Success !!");
               dispatch({ type: "ADD_TO_CART", payload: [] });
+              navigate("/user/history");
               if (typeof window !== "undefined") {
                 localStorage.removeItem("cart");
               }

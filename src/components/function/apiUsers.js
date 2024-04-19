@@ -109,3 +109,11 @@ export const removeWishlist = async (authToken, productId) => {
     }
   );
 };
+
+export const getOrders = async (authToken) => {
+  return await axios.get(path + "user/orders", {
+    headers: {
+      authToken,
+    },
+  });
+};

@@ -37,6 +37,7 @@ import Checkout from "./components/page/checkout/Checkout";
 
 //page wishlist
 import Wishlist from "./components/page/user/wishlist/Wishlist";
+import History from "./components/page/user/history/History";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -92,6 +93,14 @@ const App = () => {
           element={
             <UserRoute>
               <Wishlist />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/user/history"
+          element={
+            <UserRoute>
+              <History />
             </UserRoute>
           }
         />
