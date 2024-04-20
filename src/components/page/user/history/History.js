@@ -6,6 +6,15 @@ import { shallowEqual, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import MenubarUser from "../../../layout/MenubarUser";
 import { getOrders } from "../../../function/apiUsers";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import Invoice from "../../../order/invoice/Invoice";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableCell,
+  DataTableCell,
+} from "@david.kucsai/react-pdf-table";
 const History = () => {
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
 
@@ -75,6 +84,19 @@ const History = () => {
                       </tr>
                     </tbody>
                   </table>
+                  {/* PDF */}
+                  <div className="row">
+                    <div className="col">
+                      <PDFDownloadLink
+                        key={index}
+                        className="btn btn-primary m-1"
+                        document={<Invoice order={item} />}
+                        fileName="invoice.pdf"
+                      >
+                        PDF Download
+                      </PDFDownloadLink>
+                    </div>
+                  </div>
                 </div>
               );
             })}
