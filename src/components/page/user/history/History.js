@@ -65,15 +65,20 @@ const History = () => {
                     </thead>
 
                     <tbody>
-                      {item.products.map((p, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td>{p.product.title}</td>
-                            <td>{p.price}</td>
-                            <td>{p.count}</td>
-                          </tr>
-                        );
-                      })}
+                      {item &&
+                        item.products.map((p, idx) => {
+                          const productName =
+                            p?.product && p?.product?.title
+                              ? p?.product?.title
+                              : "Unknown Product";
+                          return (
+                            <tr key={idx}>
+                              <td>{productName}</td>
+                              <td>{p.price}</td>
+                              <td>{p.count}</td>
+                            </tr>
+                          );
+                        })}
                       <tr>
                         <td colSpan={3}>
                           ราคาสุทธิ :{" "}

@@ -49,7 +49,7 @@ const Invoice = ({ order }) => {
             </TH>
             {order.products.map((p, index) => (
               <TR key={index}>
-                <TD>{p.product.title}</TD>
+                <TD>{p?.product?.title ?? "Unknown Product"}</TD>
                 <TD>{p.price}</TD>
                 <TD>{p.count}</TD>
               </TR>
