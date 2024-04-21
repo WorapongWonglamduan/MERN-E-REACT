@@ -38,6 +38,7 @@ import Checkout from "./components/page/checkout/Checkout";
 //page wishlist
 import Wishlist from "./components/page/user/wishlist/Wishlist";
 import History from "./components/page/user/history/History";
+import Order from "./components/page/admin/order/Order";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -150,6 +151,14 @@ const App = () => {
           element={
             <AdminRoute>
               <EditProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <AdminRoute>
+              <Order />
             </AdminRoute>
           }
         />

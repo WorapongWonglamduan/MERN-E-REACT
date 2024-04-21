@@ -1,0 +1,140 @@
+import React, { useEffect, useMemo, useState } from "react";
+import MenubarAdmin from "../../../layout/MenubarAdmin";
+
+import { Spin } from "antd";
+import { useSelector, shallowEqual } from "react-redux";
+import { toast } from "react-toastify";
+
+import { getOrdersAdmin, updateStatusOrder } from "../../../function/apiAdmin";
+const Order = () => {
+  const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadData = () => {
+    getOrdersAdmin(user.token)
+      .then((res) => {
+        setOrders(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleChangeStatus = (orderId, orderStatus) => {
+    updateStatusOrder(user.token, orderId, orderStatus)
+      .then((res) => {
+        toast.info("Updated " + res.data.order_status + "Success !!");
+        loadData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const statusOrder = [
+    { value: "Not Process", label: "Not Process" },
+    { value: "Processing", label: "Processing" },
+    { value: "Cancelled", label: "Cancelled" },
+    { value: "Complete", label: "Complete" },
+  ];
+  return (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <MenubarAdmin />
+        </div>
+        <div className="col text-center">
+          <div className="row">
+            {loading ? (
+              <h1>
+                Loading ... <Spin />
+              </h1>
+            ) : (
+              <h1>Order Admin</h1>
+            )}
+
+            {orders &&
+              orders.map((item, index) => {
+                return (
+                  <div key={index} className="card m-3">
+                    <p>
+                      Order by : <b>{item.orderBy.username}</b>
+                    </p>
+                    Order{"    " + item.order_status}
+                    <select
+                      style={{ width: "200px", alignSelf: "center" }}
+                      className="form-control"
+                      value={item.order_status}
+                      onChange={(e) =>
+                        handleChangeStatus(item._id, e.target.value)
+                      }
+                    >
+                      {statusOrder.map((item, index) => {
+                        return (
+                          <option key={index} value={item.value}>
+                            {item.label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <td>Title</td>
+                          <td>Price</td>
+                          <td>Count</td>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {item.products &&
+                          item.products.map((p, idx) => {
+                            return (
+                              <tr key={idx}>
+                                <td>{p?.product?.title}</td>
+                                <td>{p.price}</td>
+                                <td>{p.count}</td>
+                              </tr>
+                            );
+                          })}
+                        <tr>
+                          <td colSpan={3}>
+                            ราคาสุทธิ :{" "}
+                            <b>
+                              <u>{item.cartTotal}</u>
+                            </b>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    {/* PDF */}
+                    {/* <div className="row">
+                    <div className="col">
+                      <PDFDownloadLink
+                        key={index}
+                        className="btn btn-primary m-1"
+                        document={<Invoice order={item} />}
+                        fileName="invoice.pdf"
+                      >
+                        PDF Download
+                      </PDFDownloadLink>
+                    </div>
+                  </div> */}
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Order;
