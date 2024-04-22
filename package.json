@@ -53,6 +53,6 @@
     ]
   },
   "devDependencies": {
-    "@ag-media/react-pdf-table": "^1.0.1"
+    "@ag-media/react-pdf-table": "^0.4.0"
   }
 }
