@@ -9,12 +9,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Redux
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+
 import rootReducers from "./components/reducers";
 
 //Route
 import { BrowserRouter } from "react-router-dom";
-const store = createStore(rootReducers, composeWithDevTools());
+const store = createStore(rootReducers);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
