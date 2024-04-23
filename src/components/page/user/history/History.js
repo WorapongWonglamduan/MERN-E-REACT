@@ -6,15 +6,9 @@ import { shallowEqual, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import MenubarUser from "../../../layout/MenubarUser";
 import { getOrders } from "../../../function/apiUsers";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../../order/invoice/Invoice";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableCell,
-  DataTableCell,
-} from "@david.kucsai/react-pdf-table";
+
 const History = () => {
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
 
