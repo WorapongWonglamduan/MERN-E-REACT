@@ -16,7 +16,7 @@ import Home from "./components/page/home/Home";
 import Navbar from "./components/layout/Navbars";
 //page admin
 import AdminRoute from "./components/routes/AdminRoute";
-import HomeAdmin from "./components/page/admin/home/Home";
+import HomeAdmin from "./components/page/admin/home/home";
 import ManageAdmin from "./components/page/admin/manage/ManageAdmin";
 //page user
 import UserRoute from "./components/routes/UserRoute";
