@@ -4,7 +4,7 @@ import MenubarAdmin from "../../../layout/MenubarAdmin";
 import { Spin } from "antd";
 import { useSelector, shallowEqual } from "react-redux";
 import { toast } from "react-toastify";
-
+import { Tabs, Table } from "antd";
 import { getOrdersAdmin, updateStatusOrder } from "../../../function/apiAdmin";
 const Order = () => {
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
@@ -44,6 +44,138 @@ const Order = () => {
     { value: "Cancelled", label: "Cancelled" },
     { value: "Complete", label: "Complete" },
   ];
+
+  const OrderCard = () => {
+    return (
+      <>
+        {orders &&
+          orders.map((item, index) => {
+            return (
+              <div key={index} className="card m-3">
+                <p>
+                  Order by : <b>{item.orderBy.username}</b>
+                </p>
+                Order{"    " + item.order_status}
+                <select
+                  style={{ width: "200px", alignSelf: "center" }}
+                  className="form-control"
+                  value={item.order_status}
+                  onChange={(e) => handleChangeStatus(item._id, e.target.value)}
+                >
+                  {statusOrder.map((item, index) => {
+                    return (
+                      <option key={index} value={item.value}>
+                        {item.label}
+                      </option>
+                    );
+                  })}
+                </select>
+                <table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td>Title</td>
+                      <td>Price</td>
+                      <td>Count</td>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {item.products &&
+                      item.products.map((p, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td>{p?.product?.title}</td>
+                            <td>{p.price}</td>
+                            <td>{p.count}</td>
+                          </tr>
+                        );
+                      })}
+                    <tr>
+                      <td colSpan={3}>
+                        ราคาสุทธิ :{" "}
+                        <b>
+                          <u>{item.cartTotal}</u>
+                        </b>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            );
+          })}
+      </>
+    );
+  };
+
+  const columns = [
+    {
+      title: "ชื่อผู้ใช้",
+      render: (item, index) => <div key={index}>{item.orderBy.username}</div>,
+    },
+
+    {
+      title: "รายการสินค้า",
+      render: (item, index) => (
+        <ol key={index}>
+          {item.products.map((p, idx) => (
+            <li key={`product_${idx}`}>
+              {/* Prefixing with 'product_' */}
+              {p?.product?.title}{" "}
+              <b>
+                {p.count} x {p.price}
+              </b>
+            </li>
+          ))}
+        </ol>
+      ),
+    },
+    {
+      title: "ราคารวมสุทธิ",
+      dataIndex: "cartTotal",
+      key: "cartTotal",
+    },
+    {
+      title: "สถานะ",
+      render: (item) => (
+        <select
+          style={{ width: "200px", alignSelf: "center" }}
+          className="form-control"
+          value={item.order_status}
+          onChange={(e) => handleChangeStatus(item._id, e.target.value)}
+        >
+          {statusOrder.map((item, index) => {
+            return (
+              <option key={index} value={item.value}>
+                {item.label}
+              </option>
+            );
+          })}
+        </select>
+      ),
+    },
+  ];
+
+  const itemsTabs = [
+    {
+      key: "1",
+      label: "Tab 1",
+      children: <OrderCard />,
+    },
+    {
+      key: "2",
+      label: "Tab 2",
+      children: <Table dataSource={orders} columns={columns} />,
+    },
+    {
+      key: "3",
+      label: "Tab 3",
+      children: "Content of Tab Pane 3",
+    },
+  ];
+
+  const onChange = (key) => {
+    console.log(key);
+  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -59,77 +191,7 @@ const Order = () => {
             ) : (
               <h1>Order Admin</h1>
             )}
-
-            {orders &&
-              orders.map((item, index) => {
-                return (
-                  <div key={index} className="card m-3">
-                    <p>
-                      Order by : <b>{item.orderBy.username}</b>
-                    </p>
-                    Order{"    " + item.order_status}
-                    <select
-                      style={{ width: "200px", alignSelf: "center" }}
-                      className="form-control"
-                      value={item.order_status}
-                      onChange={(e) =>
-                        handleChangeStatus(item._id, e.target.value)
-                      }
-                    >
-                      {statusOrder.map((item, index) => {
-                        return (
-                          <option key={index} value={item.value}>
-                            {item.label}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <td>Title</td>
-                          <td>Price</td>
-                          <td>Count</td>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        {item.products &&
-                          item.products.map((p, idx) => {
-                            return (
-                              <tr key={idx}>
-                                <td>{p?.product?.title}</td>
-                                <td>{p.price}</td>
-                                <td>{p.count}</td>
-                              </tr>
-                            );
-                          })}
-                        <tr>
-                          <td colSpan={3}>
-                            ราคาสุทธิ :{" "}
-                            <b>
-                              <u>{item.cartTotal}</u>
-                            </b>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    {/* PDF */}
-                    {/* <div className="row">
-                    <div className="col">
-                      <PDFDownloadLink
-                        key={index}
-                        className="btn btn-primary m-1"
-                        document={<Invoice order={item} />}
-                        fileName="invoice.pdf"
-                      >
-                        PDF Download
-                      </PDFDownloadLink>
-                    </div>
-                  </div> */}
-                  </div>
-                );
-              })}
+            <Tabs defaultActiveKey="1" items={itemsTabs} onChange={onChange} />
           </div>
         </div>
       </div>
