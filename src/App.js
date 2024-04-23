@@ -20,7 +20,7 @@ import HomeAdmin from "./components/page/admin/home/home";
 import ManageAdmin from "./components/page/admin/manage/ManageAdmin";
 //page user
 import UserRoute from "./components/routes/UserRoute";
-import HomeUser from "./components/page/user/home/Home";
+import HomeUser from "./components/page/user/home/home";
 //page category
 import CreateCategory from "./components/page/admin/category/CreateCategory";
 import EditCategory from "./components/page/admin/category/EditCategory";
