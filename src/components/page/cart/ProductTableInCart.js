@@ -27,7 +27,7 @@ const ProductTableInCart = ({ item }) => {
     dispatch({ type: "ADD_TO_CART", payload: updatedCart });
   };
 
-  return useMemo(() => (
+  return (
     <tbody>
       <tr>
         <td>
@@ -48,7 +48,7 @@ const ProductTableInCart = ({ item }) => {
         </td>
       </tr>
     </tbody>
-  ), [item, handleChangeCount, handleRemove]);
+  );
 };
 
 export default ProductTableInCart;
