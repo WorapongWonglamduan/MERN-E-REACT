@@ -118,8 +118,7 @@ const Order = () => {
       render: (item, index) => (
         <ol key={index}>
           {item.products.map((p, idx) => (
-            <li key={`product_${idx}`}>
-              {/* Prefixing with 'product_' */}
+            <li key={idx}>
               {p?.product?.title}{" "}
               <b>
                 {p.count} x {p.price}
@@ -155,6 +154,66 @@ const Order = () => {
     },
   ];
 
+  const TableBS = () => {
+    return (
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ชื่อผู้ใช้</th>
+            <th scope="col">รายการสินค้า</th>
+            <th scope="col">ราคารวมสุทธิ</th>
+            <th scope="col">สถานะ</th>
+            <th scope="col">อัพเดทสถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((item, index) => {
+            return (
+              <tr key={index}>
+                <th scope="row">{item.orderBy.username}</th>
+                <td>
+                  <ol>
+                    {item.products.map((p, idx) => {
+                      return (
+                        <li key={idx}>
+                          {p?.product?.title ?? "unknown product"}
+                          {" : "}
+                          <b>
+                            {p.price} x {p.count}
+                          </b>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </td>
+                <td>{item.cartTotal}</td>
+                <td>{item.order_status}</td>
+                <td>
+                  <select
+                    style={{ width: "200px", alignSelf: "center" }}
+                    className="form-control"
+                    value={item.order_status}
+                    onChange={(e) =>
+                      handleChangeStatus(item._id, e.target.value)
+                    }
+                  >
+                    {statusOrder.map((item, index) => {
+                      return (
+                        <option key={index} value={item.value}>
+                          {item.label}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };
+
   const itemsTabs = [
     {
       key: "1",
@@ -169,13 +228,9 @@ const Order = () => {
     {
       key: "3",
       label: "Tab 3",
-      children: "Content of Tab Pane 3",
+      children: <TableBS />,
     },
   ];
-
-  const onChange = (key) => {
-    console.log(key);
-  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -191,7 +246,7 @@ const Order = () => {
             ) : (
               <h1>Order Admin</h1>
             )}
-            <Tabs defaultActiveKey="1" items={itemsTabs} onChange={onChange} />
+            <Tabs defaultActiveKey="1" items={itemsTabs} />
           </div>
         </div>
       </div>
