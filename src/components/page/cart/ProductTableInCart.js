@@ -1,44 +1,33 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const ProductTableInCart = ({ item }) => {
   const dispatch = useDispatch();
+
   const handleChangeCount = (e) => {
     const count = e.target.value < 1 ? 1 : e.target.value;
     if (count > item.quantity) {
       toast.error("Max available Quantity");
     } else {
-      let cart = [];
-      if (localStorage.getItem("cart")) {
-        cart = JSON.parse(localStorage.getItem("cart"));
-      }
-      cart.map((product, index) => {
-        if (product._id === item._id) {
-          return (cart[index].count = count);
-        }
-        return product;
-      });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      dispatch({ type: "ADD_TO_CART", payload: cart });
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const updatedCart = cart.map((product) =>
+        product._id === item._id ? { ...product, count } : product
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      dispatch({ type: "ADD_TO_CART", payload: updatedCart });
     }
   };
+
   const handleRemove = () => {
-    let cart = [];
-    if (localStorage.getItem("cart")) {
-      cart = JSON.parse(localStorage.getItem("cart"));
-    }
-    cart.map((product, index) => {
-      if (product._id === item._id) {
-        return cart.splice(index, 1);
-      }
-      return product;
-    });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    dispatch({ type: "ADD_TO_CART", payload: cart });
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = cart.filter((product) => product._id !== item._id);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    dispatch({ type: "ADD_TO_CART", payload: updatedCart });
   };
-  return (
+
+  return useMemo(() => (
     <tbody>
       <tr>
         <td>
@@ -59,7 +48,7 @@ const ProductTableInCart = ({ item }) => {
         </td>
       </tr>
     </tbody>
-  );
+  ), [item, handleChangeCount, handleRemove]);
 };
 
 export default ProductTableInCart;

@@ -1,19 +1,19 @@
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import ProductTableInCart from "./ProductTableInCart";
 import { userCart } from "../../function/apiUsers";
 
 const Cart = () => {
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, cart } = useSelector(
+  const { user, cart: cartReduce } = useSelector(
     (state) => ({
       cart: state.cart,
       user: state.user,
     }),
     shallowEqual
   );
+  const cart = useMemo(() => cartReduce, [cartReduce]);
 
   const getTotal = () => {
     return cart.reduce((sumValue, currentValue) => {
@@ -30,7 +30,9 @@ const Cart = () => {
         console.log(err);
       });
   };
-  const CartItemTable = () => {
+
+  // Memoized CartItemTable component
+  const CartItemTable = useMemo(() => {
     return (
       <table className="table table-bordered">
         <thead className="thead-light">
@@ -48,13 +50,14 @@ const Cart = () => {
         })}
       </table>
     );
-  };
+  }, [cart]);
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-8">
           <h4>Cart / {cart.length} product</h4>
-          {!cart.length ? <p>No product in cart</p> : <CartItemTable />}
+          {!cart.length ? <p>No product in cart</p> : CartItemTable}
         </div>
         <div className="col-md-4">
           <h4>Summary</h4>
