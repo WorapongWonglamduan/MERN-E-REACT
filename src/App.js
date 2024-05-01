@@ -65,106 +65,108 @@ const App = () => {
       <ToastContainer />
       <Navbar />
       <SideDrawer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/cart" element={<Cart />} />
+      <div style={{ marginTop: "7%" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
 
-        <Route
-          path="/user/index"
-          element={
-            <UserRoute>
-              <HomeUser />
-            </UserRoute>
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <UserRoute>
-              <Checkout />
-            </UserRoute>
-          }
-        />
-        <Route
-          path="/user/wishlist"
-          element={
-            <UserRoute>
-              <Wishlist />
-            </UserRoute>
-          }
-        />
-        <Route
-          path="/user/history"
-          element={
-            <UserRoute>
-              <History />
-            </UserRoute>
-          }
-        />
-        <Route
-          path="/admin/index"
-          element={
-            <AdminRoute>
-              <HomeAdmin />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/admin/manage-admin"
-          element={
-            <AdminRoute>
-              <ManageAdmin />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/admin/create-category"
-          element={
-            <AdminRoute>
-              <CreateCategory />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/admin/edit-category/:id"
-          element={
-            <AdminRoute>
-              <EditCategory />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/user/index"
+            element={
+              <UserRoute>
+                <HomeUser />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <UserRoute>
+                <Checkout />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/user/wishlist"
+            element={
+              <UserRoute>
+                <Wishlist />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/user/history"
+            element={
+              <UserRoute>
+                <History />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/admin/index"
+            element={
+              <AdminRoute>
+                <HomeAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/manage-admin"
+            element={
+              <AdminRoute>
+                <ManageAdmin />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/create-category"
+            element={
+              <AdminRoute>
+                <CreateCategory />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/edit-category/:id"
+            element={
+              <AdminRoute>
+                <EditCategory />
+              </AdminRoute>
+            }
+          />
 
-        <Route
-          path="/admin/create-product"
-          element={
-            <AdminRoute>
-              <CreateProduct />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/admin/edit-product/:id"
-          element={
-            <AdminRoute>
-              <EditProduct />
-            </AdminRoute>
-          }
-        />
-        <Route
-          path="/admin/orders"
-          element={
-            <AdminRoute>
-              <Order />
-            </AdminRoute>
-          }
-        />
+          <Route
+            path="/admin/create-product"
+            element={
+              <AdminRoute>
+                <CreateProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/edit-product/:id"
+            element={
+              <AdminRoute>
+                <EditProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminRoute>
+                <Order />
+              </AdminRoute>
+            }
+          />
 
-        <Route path="*" element={<Error500 />} />
-      </Routes>
+          <Route path="*" element={<Error500 />} />
+        </Routes>
+      </div>
     </div>
   );
 };
