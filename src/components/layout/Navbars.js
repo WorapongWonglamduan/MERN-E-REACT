@@ -122,10 +122,13 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        {/* Nav item */}
         <div className="container px-0">
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" className="navbar-brand">
-              <h1 className="text-primary display-6">Fruitables</h1>
+            <a href="#" className="navbar-brand">
+              <h1 className="text-primary display-6">
+                <Link to={"/"}>WorapongShop</Link>
+              </h1>
             </a>
             <button
               className="navbar-toggler py-2 px-3"
@@ -140,41 +143,16 @@ const Navbar = () => {
               id="navbarCollapse"
             >
               <div className="navbar-nav mx-auto">
-                <a href="index.html" className="nav-item nav-link active">
+                {/* <a href="#" className="nav-item nav-link active"> */}
+                <Link className="nav-item nav-link active" to={"/"}>
                   Home
-                </a>
-                <a href="shop.html" className="nav-item nav-link">
+                </Link>
+                {/* </a> */}
+                {/* <a href="#" className="nav-item nav-link"> */}
+                <Link className="nav-item nav-link" to={"/shop"}>
                   Shop
-                </a>
-                <a href="shop-detail.html" className="nav-item nav-link">
-                  Shop Detail
-                </a>
-                <div className="nav-item dropdown">
-                  <a
-                    href="#"
-                    className="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                  >
-                    Pages
-                  </a>
-                  <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                    <a href="cart.html" className="dropdown-item">
-                      Cart
-                    </a>
-                    <a href="chackout.html" className="dropdown-item">
-                      Chackout
-                    </a>
-                    <a href="testimonial.html" className="dropdown-item">
-                      Testimonial
-                    </a>
-                    <a href="404.html" className="dropdown-item">
-                      404 Page
-                    </a>
-                  </div>
-                </div>
-                <a href="contact.html" className="nav-item nav-link">
-                  Contact
-                </a>
+                </Link>
+                {/* </a> */}
               </div>
               <div className="d-flex m-3 me-0">
                 <button
@@ -184,26 +162,58 @@ const Navbar = () => {
                 >
                   <i className="fas fa-search text-primary"></i>
                 </button>
-                <a href="#" className="position-relative me-4 my-auto">
+
+                <Link className="position-relative  my-auto" to={"/cart"}>
                   <i className="fa fa-shopping-bag fa-2x"></i>
-                  <span
-                    className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                    style={{
-                      top: "-5px",
-                      left: "15px",
-                      height: "20px",
-                      minWidth: "20px",
-                    }}
-                  >
-                    3
-                  </span>
-                </a>
+                  <Badge count={cart.length} offset={[-10, -30]}></Badge>
+                </Link>
+
                 <a href="#" className="my-auto">
                   <i className="fas fa-user fa-2x"></i>
                 </a>
               </div>
             </div>
           </nav>
+        </div>
+      </div>
+    );
+  };
+  const ModalSearch = () => {
+    return (
+      <div
+        className="modal fade"
+        id="searchModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-fullscreen">
+          <div className="modal-content rounded-0">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Search by keyword
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body d-flex align-items-center">
+              <div className="input-group w-75 mx-auto d-flex">
+                <input
+                  type="search"
+                  className="form-control p-3"
+                  placeholder="keywords"
+                  aria-describedby="search-icon-1"
+                />
+                <span id="search-icon-1" className="input-group-text p-3">
+                  <i className="fa fa-search"></i>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -217,6 +227,7 @@ const Navbar = () => {
         items={items}
       /> */}
       <NavBarContent />
+      <ModalSearch />
     </>
   );
 };
