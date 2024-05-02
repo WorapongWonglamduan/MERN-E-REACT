@@ -65,7 +65,7 @@ const App = () => {
       <ToastContainer />
       <Navbar />
       <SideDrawer />
-      <div style={{ marginTop: "10%" }}>
+      <div className="container-fluid wrap-route">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />

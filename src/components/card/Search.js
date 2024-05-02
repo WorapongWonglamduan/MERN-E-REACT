@@ -13,7 +13,7 @@ const Search = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/shop?" + text);
+    navigate("/shop?" + text, { state: { text: text } });
   };
   return (
     <form onSubmit={handleSubmit}>

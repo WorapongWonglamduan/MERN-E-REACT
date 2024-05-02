@@ -4,12 +4,13 @@ import ProductCard from "../../card/ProductCard";
 import { useSelector } from "react-redux";
 import { Checkbox, Slider } from "antd";
 import { listCategory } from "../../function/apiCategory";
+import { useLocation, useParams } from "react-router-dom";
 
 const Shop = () => {
-  const search = useSelector((state) => state.search);
-  const memoizedSearch = useMemo(() => search, [search]);
+  const location = useLocation();
 
-  const { text } = memoizedSearch;
+  const text = location.state.text;
+
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);
   const [price, setPrice] = useState([1, 10000]);
@@ -69,14 +70,6 @@ const Shop = () => {
     if (inState.length < 1) {
       loadData();
     }
-    // setCategorySelect((prev) => {
-    //   const findId = prev.find((item) => item === isCheck);
-    //   if (findId) {
-    //     return prev.filter((item) => item !== findId);
-    //   } else {
-    //     return [...prev, isCheck];
-    //   }
-    // });
   };
 
   useEffect(() => {

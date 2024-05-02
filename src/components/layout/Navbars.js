@@ -163,7 +163,12 @@ const Navbar = () => {
                   <i className="fas fa-search text-primary"></i>
                 </button>
 
-                <Link className="position-relative  my-auto" to={"/cart"}>
+                <Link
+                  className={`position-relative  my-auto ${
+                    cart.length <= 0 ? "me-4" : ""
+                  }`}
+                  to={"/cart"}
+                >
                   <i className="fa fa-shopping-bag fa-2x"></i>
                   <Badge count={cart.length} offset={[-10, -30]}></Badge>
                 </Link>
