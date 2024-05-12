@@ -9,7 +9,7 @@ import { useLocation, useParams } from "react-router-dom";
 const Shop = () => {
   const location = useLocation();
 
-  const text = location.state.text;
+  const text = location?.state?.text ?? "";
 
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);

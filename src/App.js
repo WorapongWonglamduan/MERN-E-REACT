@@ -63,8 +63,9 @@ const App = () => {
   return (
     <div className="App">
       <ToastContainer />
-      <Navbar />
       <SideDrawer />
+      <Navbar />
+
       <div className="container-fluid wrap-route">
         <Routes>
           <Route path="/" element={<Home />} />
