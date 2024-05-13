@@ -5,6 +5,8 @@ import NewProduct from "./NewProduct";
 import Preview from "./Preview";
 import Feature from "./Feature";
 import FreshProduct from "./FreshProduct";
+import Promotion from "./Promotion";
+import BestSellerProduct from "./BestSellerProduct";
 
 const Home = () => {
   return (
@@ -19,14 +21,16 @@ const Home = () => {
         สินค้ามาใหม่
       </h4>
       <NewProduct />
-      <FreshProduct />
+      {/* <FreshProduct /> */}
+      <Promotion />
 
       {/* best seller */}
       <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         สินค้าขายอย่างดี
       </h4>
 
-      <BestSeller />
+      {/* <BestSeller /> */}
+      <BestSellerProduct />
     </div>
   );
 };
