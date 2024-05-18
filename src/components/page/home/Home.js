@@ -21,13 +21,13 @@ const Home = () => {
         สินค้ามาใหม่
       </h4>
       <NewProduct />
-      {/* <FreshProduct /> */}
+      <FreshProduct />
       <Promotion />
 
       {/* best seller */}
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
+      {/* <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         สินค้าขายอย่างดี
-      </h4>
+      </h4> */}
 
       {/* <BestSeller /> */}
       <BestSellerProduct />
