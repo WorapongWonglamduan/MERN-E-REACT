@@ -51,11 +51,11 @@ const BestSellerProduct = () => {
 
     return (
       productRandom &&
-      productRandom.map((item) => {
+      productRandom.map((item, index) => {
         const randomObject = selectRandomObject(item?.images);
 
         return (
-          <div className="col-md-6 col-lg-6 col-xl-3">
+          <div key={index} className="col-md-6 col-lg-6 col-xl-3">
             <div className="text-center">
               <img
                 src={randomObject?.secure_url}
