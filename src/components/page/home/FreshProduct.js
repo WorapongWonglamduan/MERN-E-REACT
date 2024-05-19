@@ -29,6 +29,26 @@ const FreshProduct = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  const options = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 4000,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 3,
+      },
+      1000: {
+        items: 4,
+      },
+    },
+  };
   return (
     <>
       {loading ? (
@@ -38,7 +58,7 @@ const FreshProduct = () => {
           <div className="container py-5">
             <h1 className="mb-0">New Products</h1>
             {/* <div className="owl-carousel vegetable-carousel justify-content-center"> */}
-            <OwlCarousel className="owl-theme" loop margin={10} nav>
+            <OwlCarousel className="owl-theme" {...options}>
               {product &&
                 product.map((item, index) => {
                   const randomObject = selectRandomObject(item?.images);
