@@ -5,6 +5,7 @@ import { listProductBy } from "../../function/apiProduct";
 import { selectRandomObject } from "../../function/utils";
 import useAddCartHook from "../../function/useAddCartHook";
 import LoadingCard from "../../card/LoadingCard";
+
 import "./custom.css";
 const FreshProduct = () => {
   const { addCart } = useAddCartHook();
@@ -36,7 +37,7 @@ const FreshProduct = () => {
     nav: true,
     dots: false,
     autoplay: true,
-    autoplayTimeout: 4000,
+    // autoplayTimeout: 4000,
     responsive: {
       0: {
         items: 1,
@@ -58,7 +59,15 @@ const FreshProduct = () => {
           <div className="container py-5">
             <h1 className="mb-0">New Products</h1>
             {/* <div className="owl-carousel vegetable-carousel justify-content-center"> */}
-            <OwlCarousel className="owl-theme" {...options}>
+
+            <OwlCarousel
+              className="owl-theme"
+              navText={[
+                '<div class="owl-prev btn border border-secondary rounded-pill px-3 text-primary"><i class="bi bi-arrow-left"/></div>',
+                '<div class="owl-next btn border border-secondary rounded-pill px-3 text-primary"><i class="bi bi-arrow-right"/></div>',
+              ]}
+              {...options}
+            >
               {product &&
                 product.map((item, index) => {
                   const randomObject = selectRandomObject(item?.images);
@@ -116,8 +125,9 @@ const FreshProduct = () => {
                   );
                 })}
             </OwlCarousel>
-            {/* </div> */}
           </div>
+
+          {/* </div> */}
         </div>
       )}
     </>
