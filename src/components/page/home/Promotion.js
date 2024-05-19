@@ -7,7 +7,7 @@ const Promotion = () => {
       <div className="container py-5">
         <div className="row g-4 justify-content-center">
           <div className="col-md-6 col-lg-4">
-            <a href="#">
+            <span>
               <div className="service-item bg-secondary rounded border border-secondary">
                 <img
                   src={Img.imageFeture1}
@@ -21,10 +21,10 @@ const Promotion = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </span>
           </div>
           <div className="col-md-6 col-lg-4">
-            <a href="#">
+            <span>
               <div className="service-item bg-dark rounded border border-dark">
                 <img
                   src={Img.imageFeture2}
@@ -38,10 +38,10 @@ const Promotion = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </span>
           </div>
           <div className="col-md-6 col-lg-4">
-            <a href="#">
+            <span>
               <div className="service-item bg-primary rounded border border-primary">
                 <img
                   src={Img.imageFeture3}
@@ -55,7 +55,7 @@ const Promotion = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </span>
           </div>
         </div>
       </div>

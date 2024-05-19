@@ -1,5 +1,5 @@
-import React, { memo, useMemo } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { /* memo, */ useMemo } from "react";
+import { /* useDispatch, */ useSelector, shallowEqual } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import ProductTableInCart from "./ProductTableInCart";
 import { userCart } from "../../function/apiUsers";

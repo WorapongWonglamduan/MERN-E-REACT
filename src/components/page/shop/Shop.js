@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { listProduct, searchFilters } from "../../function/apiProduct";
 import ProductCard from "../../card/ProductCard";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Checkbox, Slider } from "antd";
 import { listCategory } from "../../function/apiCategory";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Shop = () => {
   const location = useLocation();

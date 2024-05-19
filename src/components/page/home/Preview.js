@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { /* useMemo, */ useState } from "react";
 import { Img } from "../../../assets/img/hook-img";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 
 const Preview = () => {
   const navigate = useNavigate();
@@ -53,9 +53,9 @@ const Preview = () => {
                     className="img-fluid w-100 h-100 bg-secondary rounded"
                     alt="First slide"
                   />
-                  <a href="#" className="btn px-4 py-2 text-white rounded">
+                  <span className="btn px-4 py-2 text-white rounded">
                     Fruites
-                  </a>
+                  </span>
                 </div>
                 <div className="carousel-item rounded">
                   <img
@@ -63,9 +63,9 @@ const Preview = () => {
                     className="img-fluid w-100 h-100 rounded"
                     alt="Second slide"
                   />
-                  <a href="#" className="btn px-4 py-2 text-white rounded">
+                  <span className="btn px-4 py-2 text-white rounded">
                     Vesitables
-                  </a>
+                  </span>
                 </div>
               </div>
               <button

@@ -1,15 +1,15 @@
 import React from "react";
 import { Card, Tabs } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { addToWishlist } from "../function/apiUsers";
-const { Meta } = Card;
-const { TabPane } = Tabs;
+// const { Meta } = Card;
+// const { TabPane } = Tabs;
 const SingleProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
@@ -76,11 +76,11 @@ const SingleProductCard = ({ product }) => {
         <Card
           key={_id}
           actions={[
-            <a onClick={() => handleAddToWishlist(_id)}>
+            <div onClick={() => handleAddToWishlist(_id)}>
               <HeartOutlined className="text-info" />
               <br />
               Add to wishlist
-            </a>,
+            </div>,
             <>
               <ShoppingCartOutlined
                 onClick={handleAddToCart}

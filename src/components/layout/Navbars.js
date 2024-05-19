@@ -1,21 +1,21 @@
-import React, { useMemo, useState } from "react";
-import {
-  LogoutOutlined,
-  HomeOutlined,
-  LoginOutlined,
-  UserAddOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-} from "@ant-design/icons";
-import { Menu, Badge } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+// import React, { useMemo, useState } from "react";
+// import {
+//   LogoutOutlined,
+//   HomeOutlined,
+//   LoginOutlined,
+//   UserAddOutlined,
+//   ShoppingCartOutlined,
+//   ShoppingOutlined,
+// } from "@ant-design/icons";
+import { /* Menu, */ Badge } from "antd";
+import { Link /* useNavigate */ } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { toast } from "react-toastify";
 import { useSelector, shallowEqual } from "react-redux";
-import Search from "../card/Search";
+// import Search from "../card/Search";
 import "./custom.css";
 const Navbar = () => {
-  const { user, cart } = useSelector(
+  const { /*  user, */ cart } = useSelector(
     (state) => ({
       user: state.user,
       cart: state.cart,
@@ -23,72 +23,72 @@ const Navbar = () => {
     shallowEqual
   );
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [current, setCurrent] = useState("home");
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const [current, setCurrent] = useState("home");
 
-  const onClick = (e) => {
-    setCurrent(e.key);
-    if (e.key === "logout") {
-      logout();
-    }
-  };
+  // const onClick = (e) => {
+  //   setCurrent(e.key);
+  //   if (e.key === "logout") {
+  //     logout();
+  //   }
+  // };
 
-  const logout = () => {
-    dispatch({ type: "LOGOUT", payload: null });
-    setCurrent("login");
-    navigate("/login");
-    toast.success("Logout");
-  };
-  const isLogin =
-    user && user.role === "admin" ? "/admin/index" : "/user/index";
+  // const logout = () => {
+  //   dispatch({ type: "LOGOUT", payload: null });
+  //   setCurrent("login");
+  //   navigate("/login");
+  //   toast.success("Logout");
+  // };
+  // const isLogin =
+  //   user && user.role === "admin" ? "/admin/index" : "/user/index";
 
-  const items = [
-    {
-      label: <Link to={"/"}>Home</Link>,
-      key: "home",
-      icon: <HomeOutlined />,
-    },
-    {
-      label: <Link to={"/shop"}>Shop</Link>,
-      key: "shop",
-      icon: <ShoppingOutlined />,
-    },
-    {
-      label: (
-        <Link to={"/cart"}>
-          <Badge count={cart.length} offset={[9, 0]}>
-            Cart
-          </Badge>
-        </Link>
-      ),
-      key: "cart",
-      icon: <ShoppingCartOutlined />,
-    },
-    !user && {
-      label: <Link to={"/login"}>Login</Link>,
-      key: "login",
-      icon: <LoginOutlined />,
-    },
-    !user && {
-      label: <Link to={"/register"}>Register</Link>,
-      key: "register",
-      icon: <UserAddOutlined />,
-    },
-    user && {
-      key: "logout",
-      icon: <LogoutOutlined />,
-      label: "Logout",
-      title: "Logout",
-    },
-    user && {
-      key: "dashboard",
-      // icon: <LogoutOutlined />,
-      label: <Link to={isLogin}>Dashboard</Link>,
-      title: "Dashboard",
-    },
-    { label: <Search />, key: "search" },
-  ];
+  // const items = [
+  //   {
+  //     label: <Link to={"/"}>Home</Link>,
+  //     key: "home",
+  //     icon: <HomeOutlined />,
+  //   },
+  //   {
+  //     label: <Link to={"/shop"}>Shop</Link>,
+  //     key: "shop",
+  //     icon: <ShoppingOutlined />,
+  //   },
+  //   {
+  //     label: (
+  //       <Link to={"/cart"}>
+  //         <Badge count={cart.length} offset={[9, 0]}>
+  //           Cart
+  //         </Badge>
+  //       </Link>
+  //     ),
+  //     key: "cart",
+  //     icon: <ShoppingCartOutlined />,
+  //   },
+  //   !user && {
+  //     label: <Link to={"/login"}>Login</Link>,
+  //     key: "login",
+  //     icon: <LoginOutlined />,
+  //   },
+  //   !user && {
+  //     label: <Link to={"/register"}>Register</Link>,
+  //     key: "register",
+  //     icon: <UserAddOutlined />,
+  //   },
+  //   user && {
+  //     key: "logout",
+  //     icon: <LogoutOutlined />,
+  //     label: "Logout",
+  //     title: "Logout",
+  //   },
+  //   user && {
+  //     key: "dashboard",
+  //     // icon: <LogoutOutlined />,
+  //     label: <Link to={isLogin}>Dashboard</Link>,
+  //     title: "Dashboard",
+  //   },
+  //   { label: <Search />, key: "search" },
+  // ];
 
   const NavBarContent = () => {
     return (
@@ -98,38 +98,34 @@ const Navbar = () => {
             <div className="top-info ps-2">
               <small className="me-3">
                 <i className="fas fa-map-marker-alt me-2 text-secondary"></i>{" "}
-                <a href="#" className="text-white">
-                  123 Street, New York
-                </a>
+                <span className="text-white">123 Street, New York</span>
               </small>
               <small className="me-3">
                 <i className="fas fa-envelope me-2 text-secondary"></i>
-                <a href="#" className="text-white">
-                  Email@Example.com
-                </a>
+                <span className="text-white">Email@Example.com</span>
               </small>
             </div>
             <div className="top-link pe-2">
-              <a href="#" className="text-white">
+              <span className="text-white">
                 <small className="text-white mx-2">Privacy Policy</small>/
-              </a>
-              <a href="#" className="text-white">
+              </span>
+              <span className="text-white">
                 <small className="text-white mx-2">Terms of Use</small>/
-              </a>
-              <a href="#" className="text-white">
+              </span>
+              <span className="text-white">
                 <small className="text-white ms-2">Sales and Refunds</small>
-              </a>
+              </span>
             </div>
           </div>
         </div>
         {/* Nav item */}
         <div className="container px-0">
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="#" className="navbar-brand">
+            <span className="navbar-brand">
               <h1 className="text-primary display-6">
                 <Link to={"/"}>WorapongShop</Link>
               </h1>
-            </a>
+            </span>
             <button
               className="navbar-toggler py-2 px-3"
               type="button"
@@ -173,9 +169,9 @@ const Navbar = () => {
                   <Badge count={cart.length} offset={[-10, -30]}></Badge>
                 </Link>
 
-                <a href="#" className="my-auto">
+                <Link to="" className="my-auto">
                   <i className="fas fa-user fa-2x"></i>
-                </a>
+                </Link>
               </div>
             </div>
           </nav>

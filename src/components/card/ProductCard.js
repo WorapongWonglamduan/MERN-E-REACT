@@ -3,12 +3,12 @@ import { Card } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
-const { Meta } = Card;
+import { useDispatch /* useSelector */ } from "react-redux";
+// const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
   const { title, description, images, _id } = product;
 
   const handleAddToCart = () => {

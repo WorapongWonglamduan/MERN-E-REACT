@@ -1,6 +1,6 @@
 import React from "react";
-import BestSeller from "./BestSeller";
-import NewProduct from "./NewProduct";
+// import BestSeller from "./BestSeller";
+// import NewProduct from "./NewProduct";
 
 import Preview from "./Preview";
 import Feature from "./Feature";

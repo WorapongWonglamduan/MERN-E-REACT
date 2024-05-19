@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Img } from "../../../assets/img/hook-img";
+// import { Img } from "../../../assets/img/hook-img";
 import OwlCarousel from "react-owl-carousel";
 import { listProductBy } from "../../function/apiProduct";
 import { selectRandomObject } from "../../function/utils";
@@ -52,14 +52,14 @@ const FreshProduct = () => {
   };
   return (
     <>
-      {loading ? (
-        <LoadingCard count={3} />
-      ) : (
-        <div className="container-fluid vesitable py-5">
-          <div className="container py-5">
-            <h1 className="mb-0">New Products</h1>
-            {/* <div className="owl-carousel vegetable-carousel justify-content-center"> */}
-
+      <div className="container-fluid vesitable py-5">
+        <div className="container py-5">
+          <h1 className="display-4 mb-5">New Products</h1>
+          {loading ? (
+            <div className="row">
+              <LoadingCard count={3} />
+            </div>
+          ) : (
             <OwlCarousel
               className="owl-theme"
               navText={[
@@ -125,11 +125,9 @@ const FreshProduct = () => {
                   );
                 })}
             </OwlCarousel>
-          </div>
-
-          {/* </div> */}
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 };

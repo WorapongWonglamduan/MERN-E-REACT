@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, /*  useMemo, */ useState } from "react";
 import MenubarAdmin from "../../../layout/MenubarAdmin";
 
 import { Spin } from "antd";
@@ -9,7 +9,7 @@ import { getOrdersAdmin, updateStatusOrder } from "../../../function/apiAdmin";
 const Order = () => {
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading /* setLoading */] = useState(false);
 
   const loadData = () => {
     getOrdersAdmin(user.token)

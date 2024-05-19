@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import SideDrawer from "./components/drawer/SideDrawer";
 import { ToastContainer } from "react-toastify";
@@ -39,10 +39,12 @@ import Checkout from "./components/page/checkout/Checkout";
 import Wishlist from "./components/page/user/wishlist/Wishlist";
 import History from "./components/page/user/history/History";
 import Order from "./components/page/admin/order/Order";
+import Preloader from "./components/page/loader/Preloader";
 
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
   const idToken = localStorage.token;
   if (idToken) {
@@ -67,7 +69,15 @@ const App = () => {
         behavior: "smooth",
       });
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [location]);
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
   return (
     <div className="App">
       <ToastContainer />

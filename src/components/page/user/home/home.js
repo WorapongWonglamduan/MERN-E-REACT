@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { /* useEffect, useMemo, */ useState } from "react";
 
 import { Spin } from "antd";
-import AdminProductCard from "../../../card/AdminProductCard";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+// import AdminProductCard from "../../../card/AdminProductCard";
+// import { useSelector } from "react-redux";
+// import { toast } from "react-toastify";
 import MenubarUser from "../../../layout/MenubarUser";
 const Home = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading /* setLoading */] = useState(false);
 
   return (
     <div className="container-fluid">

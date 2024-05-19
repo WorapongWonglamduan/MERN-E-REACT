@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Spin } from "antd";
-import AdminProductCard from "../../../card/AdminProductCard";
+// import AdminProductCard from "../../../card/AdminProductCard";
 import { shallowEqual, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import MenubarUser from "../../../layout/MenubarUser";
 import { getOrders } from "../../../function/apiUsers";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -13,7 +13,7 @@ const History = () => {
   const { user } = useSelector((state) => ({ user: state.user }), shallowEqual);
 
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading /* setLoading */] = useState(false);
   const loadData = () => {
     getOrders(user.token)
       .then((res) => {

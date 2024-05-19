@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React /* useMemo */ from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { DeleteOutlined } from "@ant-design/icons";
