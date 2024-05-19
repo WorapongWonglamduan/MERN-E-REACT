@@ -13,24 +13,21 @@ const Home = () => {
     <div>
       {/* preview  */}
       <Preview />
-
       {/* feature */}
       <Feature />
       {/* new product */}
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
+      {/* <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         สินค้ามาใหม่
-      </h4>
-      <NewProduct />
+      </h4> */}
+      {/* <NewProduct /> */}
       <FreshProduct />
       <Promotion />
-
       {/* best seller */}
       {/* <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         สินค้าขายอย่างดี
       </h4> */}
-
       {/* <BestSeller /> */}
-      <BestSellerProduct />
+      <BestSellerProduct />;
     </div>
   );
 };

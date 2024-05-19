@@ -1,0 +1,6 @@
+.vesitable .vesitable-item .vesitable-img .img-fluid {
+  max-height: 100%;
+  max-width: 100%;
+  height: 300px;
+  object-fit: cover;
+}

@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import SideDrawer from "./components/drawer/SideDrawer";
 import { ToastContainer } from "react-toastify";
@@ -42,6 +42,7 @@ import Order from "./components/page/admin/order/Order";
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const idToken = localStorage.token;
   if (idToken) {
@@ -59,7 +60,14 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }
-
+  useEffect(() => {
+    if (location) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [location]);
   return (
     <div className="App">
       <ToastContainer />

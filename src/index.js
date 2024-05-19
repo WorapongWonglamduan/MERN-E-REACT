@@ -5,6 +5,8 @@ import App from "./App";
 //css
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "antd/dist/antd.css";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
 //Redux
 import { Provider } from "react-redux";

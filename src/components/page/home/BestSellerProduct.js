@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { listProductBy } from "../../function/apiProduct";
 import useAddCartHook from "../../function/useAddCartHook";
 import { Link } from "react-router-dom";
+import { selectRandomObject } from "../../function/utils";
 
 const BestSellerProduct = () => {
-  const addCart = useAddCartHook();
+  const { addCart } = useAddCartHook();
   const [, /* loading */ setLoading] = useState(false);
   const [product, setProduct] = useState([]);
 
@@ -27,20 +28,6 @@ const BestSellerProduct = () => {
   useEffect(() => {
     loadData();
   }, []);
-
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  const selectRandomObject = (array) => {
-    const shuffledArray = shuffleArray(array);
-    const randomIndex = Math.floor(Math.random() * shuffledArray.length);
-    return shuffledArray[randomIndex];
-  };
 
   const getRandomElements = (arr, count) => {
     return arr.sort(() => 0.5 - Math.random()).slice(0, count);

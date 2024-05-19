@@ -13,6 +13,6 @@ const useAddCartHook = () => {
     dispatch({ type: "ADD_TO_CART", payload: unique });
     dispatch({ type: "DRAWER_VISIBLE", payload: true });
   };
-  return addCart;
+  return { addCart };
 };
 export default useAddCartHook;
