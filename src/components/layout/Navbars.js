@@ -15,7 +15,7 @@ import { useSelector, shallowEqual } from "react-redux";
 // import Search from "../card/Search";
 import "./custom.css";
 const Navbar = () => {
-  const { /*  user, */ cart } = useSelector(
+  const { user, cart } = useSelector(
     (state) => ({
       user: state.user,
       cart: state.cart,
@@ -40,8 +40,8 @@ const Navbar = () => {
   //   navigate("/login");
   //   toast.success("Logout");
   // };
-  // const isLogin =
-  //   user && user.role === "admin" ? "/admin/index" : "/user/index";
+  const isLogin =
+    user && user.role === "admin" ? "/admin/index" : "/user/index";
 
   // const items = [
   //   {
@@ -169,7 +169,7 @@ const Navbar = () => {
                   <Badge count={cart.length} offset={[-10, -30]}></Badge>
                 </Link>
 
-                <Link to="" className="my-auto">
+                <Link to={isLogin} className="my-auto">
                   <i className="fas fa-user fa-2x"></i>
                 </Link>
               </div>
