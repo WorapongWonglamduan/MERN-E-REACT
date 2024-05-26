@@ -1,4 +1,9 @@
-import React, { /* useMemo, */ useState } from "react";
+import React, {
+  /* useMemo, */ memo,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 // import {
 //   LogoutOutlined,
 //   HomeOutlined,
@@ -7,8 +12,9 @@ import React, { /* useMemo, */ useState } from "react";
 //   ShoppingCartOutlined,
 //   ShoppingOutlined,
 // } from "@ant-design/icons";
-import { /* Menu, */ Badge } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Dropdown, Space, Badge } from "antd";
+
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { toast } from "react-toastify";
 import { useSelector, shallowEqual } from "react-redux";
@@ -41,7 +47,7 @@ const Navbar = () => {
   //   toast.success("Logout");
   // };
   const isLogin =
-    user && user.role === "admin" ? "/admin/index" : "/user/index";
+    user && user?.role === "admin" ? "/admin/index" : "/user/index";
 
   // const items = [
   //   {
@@ -89,6 +95,67 @@ const Navbar = () => {
   //   },
   //   { label: <Search />, key: "search" },
   // ];
+  const [list, setList] = useState([
+    { id: 1, title: "Home", link: "/", select: true },
+    { id: 2, title: "Shop", link: "/shop", select: false },
+    { id: 3, title: "Dashboard", link: isLogin, select: false },
+  ]);
+
+  const { pathname } = useLocation();
+
+  const onSelectList = (pathname) => {
+    setList((prev) => {
+      return prev.map((obj) => {
+        if (obj?.link === pathname) {
+          return { ...obj, select: true };
+        }
+        return { ...obj, select: false };
+      });
+    });
+  };
+
+  useEffect(() => {
+    onSelectList(pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  const ListSelect = () => {
+    return (
+      <div className="navbar-nav mx-auto">
+        {list &&
+          list.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                className={`nav-item nav-link ${item?.select ? "active" : ""}`}
+                to={item?.link}
+              >
+                {item?.title}
+              </Link>
+            );
+          })}
+      </div>
+    );
+  };
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: "4",
+      danger: true,
+      label: "a danger item",
+    },
+  ];
 
   const NavBarContent = () => {
     return (
@@ -123,7 +190,7 @@ const Navbar = () => {
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
             <span className="navbar-brand">
               <h1 className="text-primary display-6">
-                <Link to={"/"}>WorapongShop</Link>
+                <Link to={"/"}>{user?.username}</Link>
               </h1>
             </span>
             <button
@@ -138,18 +205,8 @@ const Navbar = () => {
               className="collapse navbar-collapse bg-white"
               id="navbarCollapse"
             >
-              <div className="navbar-nav mx-auto">
-                {/* <a href="#" className="nav-item nav-link active"> */}
-                <Link className="nav-item nav-link active" to={"/"}>
-                  Home
-                </Link>
-                {/* </a> */}
-                {/* <a href="#" className="nav-item nav-link"> */}
-                <Link className="nav-item nav-link" to={"/shop"}>
-                  Shop
-                </Link>
-                {/* </a> */}
-              </div>
+              {<ListSelect />}
+
               <div className="d-flex m-3 me-0">
                 <button
                   className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
@@ -169,9 +226,22 @@ const Navbar = () => {
                   <Badge count={cart.length} offset={[-10, -30]}></Badge>
                 </Link>
 
-                <Link to={isLogin} className="my-auto">
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                >
+                  <Link className="my-auto">
+                    <i
+                      onClick={(e) => e.preventDefault()}
+                      className="fas fa-user fa-2x"
+                    ></i>
+                  </Link>
+                </Dropdown>
+
+                {/* <Link to={isLogin} className="my-auto">
                   <i className="fas fa-user fa-2x"></i>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </nav>
@@ -241,12 +311,6 @@ const Navbar = () => {
   };
   return (
     <>
-      {/* <Menu
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items}
-      /> */}
       <NavBarContent />
       <ModalSearch />
     </>

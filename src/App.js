@@ -47,22 +47,23 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const idToken = localStorage.token;
-  if (idToken) {
-    currentUser(idToken)
-      .then((res) => {
-        dispatch({
-          type: "LOGIN",
-          payload: {
-            token: idToken,
-            role: res.data.role,
-            username: res.data.username,
-            // id: res.data._id,
-          },
-        });
-      })
-      .catch((err) => console.log(err));
-  }
+
   useEffect(() => {
+    if (idToken) {
+      currentUser(idToken)
+        .then((res) => {
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              token: idToken,
+              role: res.data.role,
+              username: res.data.username,
+              // id: res.data._id,
+            },
+          });
+        })
+        .catch((err) => console.log(err));
+    }
     if (location) {
       window.scrollTo({
         top: 0,
@@ -72,6 +73,7 @@ const App = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   if (isLoading) {
