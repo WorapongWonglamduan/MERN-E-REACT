@@ -99,9 +99,15 @@ const Navbar = () => {
 
   const ListSelect = () => {
     const [list, setList] = useState([
-      { id: 1, title: "Home", link: "/", select: true },
-      { id: 2, title: "Shop", link: "/shop", select: false },
-      user && { id: 3, title: "Dashboard", link: isLogin, select: false },
+      { id: 1, title: "Home", link: "/", select: true, disable: false },
+      { id: 2, title: "Shop", link: "/shop", select: false, disable: false },
+      {
+        id: 3,
+        title: "Dashboard",
+        link: isLogin,
+        select: false,
+        disable: !user && true,
+      },
     ]);
 
     const onSelectList = (pathname) => {
@@ -119,20 +125,25 @@ const Navbar = () => {
       onSelectList(pathname);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname, user]);
+
     return (
       <div className="navbar-nav mx-auto">
         {list &&
-          list.map((item, index) => {
-            return (
-              <Link
-                key={index}
-                className={`nav-item nav-link ${item?.select ? "active" : ""}`}
-                to={item?.link}
-              >
-                {item?.title}
-              </Link>
-            );
-          })}
+          list
+            .filter((obj) => obj?.disable === false)
+            .map((item, index) => {
+              return (
+                <Link
+                  key={index}
+                  className={`nav-item nav-link ${
+                    item?.select ? "active" : ""
+                  }`}
+                  to={item?.link}
+                >
+                  {item?.title}
+                </Link>
+              );
+            })}
       </div>
     );
   };
