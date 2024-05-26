@@ -15,8 +15,8 @@ import React, {
 import { Dropdown, Space, Badge } from "antd";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { useSelector, shallowEqual } from "react-redux";
 // import Search from "../card/Search";
 import "./custom.css";
@@ -29,8 +29,10 @@ const Navbar = () => {
     shallowEqual
   );
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
   // const [current, setCurrent] = useState("home");
 
   // const onClick = (e) => {
@@ -40,12 +42,11 @@ const Navbar = () => {
   //   }
   // };
 
-  // const logout = () => {
-  //   dispatch({ type: "LOGOUT", payload: null });
-  //   setCurrent("login");
-  //   navigate("/login");
-  //   toast.success("Logout");
-  // };
+  const logout = () => {
+    dispatch({ type: "LOGOUT", payload: null });
+    navigate("/login");
+    toast.success("Logout");
+  };
   const isLogin =
     user && user?.role === "admin" ? "/admin/index" : "/user/index";
 
@@ -95,31 +96,29 @@ const Navbar = () => {
   //   },
   //   { label: <Search />, key: "search" },
   // ];
-  const [list, setList] = useState([
-    { id: 1, title: "Home", link: "/", select: true },
-    { id: 2, title: "Shop", link: "/shop", select: false },
-    { id: 3, title: "Dashboard", link: isLogin, select: false },
-  ]);
-
-  const { pathname } = useLocation();
-
-  const onSelectList = (pathname) => {
-    setList((prev) => {
-      return prev.map((obj) => {
-        if (obj?.link === pathname) {
-          return { ...obj, select: true };
-        }
-        return { ...obj, select: false };
-      });
-    });
-  };
-
-  useEffect(() => {
-    onSelectList(pathname);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
 
   const ListSelect = () => {
+    const [list, setList] = useState([
+      { id: 1, title: "Home", link: "/", select: true },
+      { id: 2, title: "Shop", link: "/shop", select: false },
+      user && { id: 3, title: "Dashboard", link: isLogin, select: false },
+    ]);
+
+    const onSelectList = (pathname) => {
+      setList((prev) => {
+        return prev.map((obj) => {
+          if (obj?.link === pathname) {
+            return { ...obj, select: true };
+          }
+          return { ...obj, select: false };
+        });
+      });
+    };
+
+    useEffect(() => {
+      onSelectList(pathname);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname, user]);
     return (
       <div className="navbar-nav mx-auto">
         {list &&
@@ -137,16 +136,15 @@ const Navbar = () => {
       </div>
     );
   };
-  const items = [
-    {
+  const itemsDropDown = [
+    !user && {
       key: "1",
-      // danger: true,
-      label: "a danger item 1",
+      label: <Link to={"/login"}>Login</Link>,
+      link: "/login",
     },
-    {
-      key: "4",
-      // danger: true,
-      label: "a danger item 2",
+    user && {
+      key: "2",
+      label: <div onClick={logout}>Logout</div>,
     },
   ];
 
@@ -221,12 +219,16 @@ const Navbar = () => {
 
                 <Dropdown
                   menu={{
-                    items,
+                    items: itemsDropDown,
                   }}
                 >
                   <Link className="my-auto">
                     <i
-                      onClick={(e) => e.preventDefault()}
+                      onClick={(e) => {
+                        console.log("====================================");
+                        console.log(e);
+                        console.log("====================================");
+                      }}
                       className="fas fa-user fa-2x"
                     ></i>
                   </Link>
