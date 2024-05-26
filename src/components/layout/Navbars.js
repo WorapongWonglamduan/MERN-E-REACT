@@ -140,20 +140,13 @@ const Navbar = () => {
   const items = [
     {
       key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      ),
+      // danger: true,
+      label: "a danger item 1",
     },
     {
       key: "4",
-      danger: true,
-      label: "a danger item",
+      // danger: true,
+      label: "a danger item 2",
     },
   ];
 
