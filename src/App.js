@@ -56,8 +56,9 @@ const App = () => {
             type: "LOGIN",
             payload: {
               token: idToken,
-              role: res.data.role,
-              username: res.data.username,
+              role: res?.data?.role,
+              username: res?.data?.username,
+              email: res?.data?.email,
               // id: res.data._id,
             },
           });

@@ -167,11 +167,13 @@ const Navbar = () => {
             <div className="top-info ps-2">
               <small className="me-3">
                 <i className="fas fa-map-marker-alt me-2 text-secondary"></i>{" "}
-                <span className="text-white">123 Street, New York</span>
+                <span className="text-white">KPP,Thailand</span>
               </small>
               <small className="me-3">
                 <i className="fas fa-envelope me-2 text-secondary"></i>
-                <span className="text-white">Email@Example.com</span>
+                <span className="text-white">
+                  {user?.email ?? "Email@Example.com"}
+                </span>
               </small>
             </div>
             <div className="top-link pe-2">
@@ -233,21 +235,10 @@ const Navbar = () => {
                     items: itemsDropDown,
                   }}
                 >
-                  <Link className="my-auto">
-                    <i
-                      onClick={(e) => {
-                        console.log("====================================");
-                        console.log(e);
-                        console.log("====================================");
-                      }}
-                      className="fas fa-user fa-2x"
-                    ></i>
+                  <Link to={"/"} className="my-auto">
+                    <i className="fas fa-user fa-2x"></i>
                   </Link>
                 </Dropdown>
-
-                {/* <Link to={isLogin} className="my-auto">
-                  <i className="fas fa-user fa-2x"></i>
-                </Link> */}
               </div>
             </div>
           </nav>
