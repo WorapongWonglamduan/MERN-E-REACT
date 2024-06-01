@@ -12,6 +12,12 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const [value, setValue] = useState({
     username: "",
     password: "",
@@ -74,6 +80,7 @@ const Login = () => {
           ) : (
             <h1>Login</h1>
           )}
+
           <form action="" onSubmit={onHandleSubmit}>
             <div className="form-group">
               <label>username</label>
@@ -86,14 +93,30 @@ const Login = () => {
               />
             </div>
             <div className="form-group">
-              <label>password</label>
+              <label>Password</label>
               <input
                 className="form-control"
-                type="text"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
+                value={value.password}
                 onChange={onHandleChange}
               />
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="showPasswordCheckbox"
+                  checked={showPassword}
+                  onChange={toggleShowPassword}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="showPasswordCheckbox"
+                >
+                  Show Password
+                </label>
+              </div>
             </div>
 
             <br />
