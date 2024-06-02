@@ -42,7 +42,11 @@ const BestSellerProduct = () => {
         const randomObject = selectRandomObject(item?.images);
 
         return (
-          <div key={index} className="col-md-6 col-lg-6 col-xl-3">
+          <Link
+            to={"/product/" + item?._id}
+            key={index}
+            className="col-md-6 col-lg-6 col-xl-3"
+          >
             <div className="text-center">
               <img
                 src={randomObject?.secure_url}
@@ -72,7 +76,7 @@ const BestSellerProduct = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })
     );
@@ -84,7 +88,11 @@ const BestSellerProduct = () => {
           product.map((item, index) => {
             const randomObject = selectRandomObject(item?.images);
             return (
-              <div key={index} className="col-lg-6 col-xl-4">
+              <Link
+                to={"/product/" + item?._id}
+                key={index}
+                className="col-lg-6 col-xl-4"
+              >
                 <div className="p-4 rounded bg-light">
                   <div className="row align-items-center">
                     <div className="col-6">
@@ -118,7 +126,7 @@ const BestSellerProduct = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </>

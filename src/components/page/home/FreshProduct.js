@@ -7,6 +7,7 @@ import useAddCartHook from "../../function/useAddCartHook";
 import LoadingCard from "../../card/LoadingCard";
 
 import "./custom.css";
+import { Link } from "react-router-dom";
 const FreshProduct = () => {
   const { addCart } = useAddCartHook();
   const [loading, setLoading] = useState(false);
@@ -80,47 +81,49 @@ const FreshProduct = () => {
                       key={index}
                       className="border border-primary rounded position-relative vesitable-item item"
                     >
-                      <div className="vesitable-img">
-                        <img
-                          src={randomObject?.secure_url}
-                          className="img-fluid w-100 rounded-top"
-                          alt=""
-                        />
-                      </div>
-                      <div
-                        className="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style={{ top: "10px", right: "10px" }}
-                      >
-                        {categoryName}
-                      </div>
-                      <div className="p-4 rounded-bottom">
-                        <h4>{productName}</h4>
-                        <p
-                          style={{
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            width: "100%",
-                            boxSizing: "border-box",
-                          }}
+                      <Link to={"/product/" + item?._id}>
+                        <div className="vesitable-img">
+                          <img
+                            src={randomObject?.secure_url}
+                            className="img-fluid w-100 rounded-top"
+                            alt=""
+                          />
+                        </div>
+                        <div
+                          className="text-white bg-primary px-3 py-1 rounded position-absolute"
+                          style={{ top: "10px", right: "10px" }}
                         >
-                          {productDescription}
-                        </p>
-                        <div className="d-flex justify-content-between flex-lg-wrap">
-                          <p className="text-dark fs-5 fw-bold mb-0 ">
-                            $4.99 / kg
-                          </p>
-                          <button
-                            className="btn border border-secondary rounded-pill px-3 text-primary"
-                            onClick={() => {
-                              addCart({ product: item });
+                          {categoryName}
+                        </div>
+                        <div className="p-4 rounded-bottom">
+                          <h4>{productName}</h4>
+                          <p
+                            style={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              width: "100%",
+                              boxSizing: "border-box",
                             }}
                           >
-                            <i className="fa fa-shopping-bag me-2 text-primary"></i>
-                            Add to cart
-                          </button>
+                            {productDescription}
+                          </p>
+                          <div className="d-flex justify-content-between flex-lg-wrap">
+                            <p className="text-dark fs-5 fw-bold mb-0 ">
+                              $4.99 / kg
+                            </p>
+                            <button
+                              className="btn border border-secondary rounded-pill px-3 text-primary"
+                              onClick={() => {
+                                addCart({ product: item });
+                              }}
+                            >
+                              <i className="fa fa-shopping-bag me-2 text-primary"></i>
+                              Add to cart
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   );
                 })}
